@@ -1,141 +1,138 @@
-# QuantV2 量化策略完整包
+# 量化策略系统 v3.0
 
-## 📦 包含内容
+基于PostgreSQL数据库的政策驱动科技股量化策略系统。
 
-### 1. 方案文档 (docs/)
-- `阶梯博弈与动态风险平价量化方案v1.md` - 策略核心方案
-- `训练集.md` - 训练集选择方案（30只核心股票）
+## 项目概述
 
-### 2. 代码文件 (code/)
-- `config.py` - 配置文件（数据库、策略参数）
-- `data_loader.py` - 数据加载模块
-- `indicators.py` - 技术指标计算
-- `signals.py` - 交易信号生成
-- `position_sizing.py` - 仓位管理
-- `backtest.py` - 回测引擎
-- `wfo_optimizer.py` - WFO优化器
-- `run_wfo_training.py` - 调参程序（训练集）
-- `run_backtest.py` - 回测程序（测试集）
-- `test_system.py` - 系统测试
-- `requirements.txt` - Python依赖
-- `README.md` - 代码说明
-- `DELIVERY.md` - 交付文档
+本项目实现了一个完整的量化交易策略系统，包括：
 
-### 3. 调参结果 (results/)
-- `wfo_training_results_20260309_205107.json` - WFO调参结果
-- `wfo_training.log` - 调参日志
+- 股票池筛选（80-120只科技股）
+- 动态股票过滤（每日20-40只）
+- 量化信号生成（BIAS + RSI + MACD + 缩量）
+- 参数优化（遗传算法）
+- 回测引擎（Backtrader）
+- 报告生成
 
-## 🎯 最佳参数（WFO调参结果）
+## 技术栈
 
-**训练集期间**：2023-01-01 至 2024-01-01  
-**测试集期间**：2024-01-01 至 2024-04-01
+- **数据库**: PostgreSQL 17.7
+- **技术指标**: TA-Lib
+- **回测引擎**: Backtrader
+- **参数优化**: DEAP (遗传算法)
+- **数据处理**: Pandas, NumPy
+- **可视化**: Matplotlib
 
-**最优参数组合**：
-```python
-{
-    "theta_buy": 7.0,      # 负乖离率阈值
-    "theta_sell": 10.0,    # 正乖离率阈值
-    "alpha_vol": 0.4,      # 缩量系数
-    "R": 0.02              # 单笔风险敞口2%
-}
+## 项目结构
+
+```
+quantv3/
+├── config.py                    # 配置文件
+├── data_loader.py               # 数据加载模块
+├── stock_pool.py                # 股票池筛选
+├── signal_generator.py          # 信号生成
+├── main.py                      # 主程序
+├── requirements.txt             # Python依赖
+└── README.md                    # 本文件
 ```
 
-**训练集表现**：
-- 总收益率：108.12%
-- 年化收益率：113.08%
-- 最大回撤：-7.08%
-- Calmar比率：15.96
-- 夏普比率：1.29
+## 安装依赖
 
-## 🚀 快速开始
-
-### 1. 环境准备
 ```bash
-cd code/
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+# 安装 TA-Lib（需要系统级安装）
+sudo apt-get install -y ta-lib
+
+# 安装 Python 依赖
+pip3 install -r requirements.txt
 ```
 
-### 2. 配置数据库
-编辑 `config.py` 中的数据库连接信息：
-```python
-DB_CONFIG = {
-    'host': '100.87.204.122',
-    'port': 5432,
-    'database': 'quant_db',
-    'user': 'quant',
-    'password': 'Quant@2025!Secure'
-}
-```
+## 数据库配置
 
-### 3. 运行回测
+确保PostgreSQL数据库已配置并包含以下表：
+
+- `kline_daily`: 日K线数据
+- `technical_indicators`: 技术指标（已预计算）
+- `stock_basic`: 股票基本信息
+- `fina_indicator`: 财务指标
+- `daily_basic`: 市值/换手率
+- `moneyflow_hsgt`: 北向资金
+
+## 使用方法
+
+### 1. 基础测试
+
 ```bash
-# 使用最优参数运行回测
-python run_backtest.py
+python3 main.py
 ```
 
-### 4. 重新调参（可选）
+### 2. 构建股票池
+
 ```bash
-# 在训练集上重新调参
-python run_wfo_training.py
+python3 stock_pool.py
 ```
 
-## 📊 调参说明
+### 3. 测试信号生成
 
-### 训练集（30只核心股票）
-- CPO/光模块：8只（中际旭创、新易盛等）
-- 半导体/芯片：8只（菲利华、北方华创等）
-- 人形机器人/国产算力：8只（优必选、寒武纪等）
-- 液冷/海外算力：6只（工业富联、英维克等）
-
-### WFO配置
-- 训练窗口：12个月
-- 测试窗口：3个月
-- 参数空间：672个组合
-- 优化目标：Calmar Ratio
-
-## ⚠️ 注意事项
-
-1. **数据库依赖**：需要连接到PostgreSQL数据库（quant_db）
-2. **数据要求**：需要2023-2026年的日K线数据
-3. **运行环境**：建议在副机（joe-tm1703）上运行调参程序
-4. **时间窗口**：当前只完成了2个窗口，建议重新运行完整的5个窗口
-
-## 📝 文件说明
-
-### 调参结果文件格式
-```json
-{
-  "wfo_results": [
-    {
-      "window": 1,
-      "train_period": "20230101 - 20240101",
-      "test_period": "20240101 - 20240401",
-      "best_params": {...},
-      "train_metrics": {...},
-      "test_metrics": {...}
-    }
-  ],
-  "summary": {...}
-}
+```bash
+python3 signal_generator.py
 ```
 
-## 🔧 下一步工作
+## 策略说明
 
-1. ✅ 完成训练集调参（已完成）
-2. ⏳ 修复时间窗口配置（当前只有2个窗口）
-3. ⏳ 使用最优参数对股票池进行回测
-4. ⏳ 分析测试集无交易的原因
-5. ⏳ 优化参数空间（增加交易频率）
+### 买入信号
 
-## 📞 联系方式
+1. SMA60向上（趋势过滤）
+2. BIAS20 < -6%（负乖离率，超跌）
+3. Vol < 0.6 × Vol_SMA10（缩量）
+4. RSI14 < 30（超卖）
+5. MACD HIST转正（动能转强）
+6. 阳线（Close > Open）
 
-- 开发时间：2026-03-09
-- 开发者：Kiro (OpenClaw Agent)
-- 用户：火锅
+### 卖出信号
 
----
+1. BIAS20 > 12%（正乖离率过大）
+2. Close < SMA60 × 0.95（跌破均线5%）
+3. 上影线过长（获利回吐）
 
-**版本**：v1.0  
-**最后更新**：2026-03-09 21:00
+## 预期指标
+
+- 年化收益率: > 20%
+- 最大回撤: < 15%
+- 夏普比率: > 1.5
+- 换手率: < 15%/月
+- 胜率: > 60%
+
+## 开发状态
+
+### 已完成
+
+- ✅ 配置模块
+- ✅ 数据加载模块
+- ✅ 股票池筛选
+- ✅ 信号生成模块
+- ✅ 主程序框架
+
+### 待开发
+
+- ⏳ 股票过滤模块 (stock_filter.py)
+- ⏳ 参数优化模块 (optimizer.py)
+- ⏳ 回测引擎 (backtest_engine.py)
+- ⏳ 报告生成 (report_generator.py)
+
+## 注意事项
+
+1. 确保数据库连接正常
+2. 技术指标表需要预先计算（使用 calculate_technical_indicators.py）
+3. 首次运行建议使用小样本测试
+4. 参数优化需要较长时间，建议后台运行
+
+## 版本历史
+
+- v3.0 (2026-03-10): 初始版本，基础功能实现
+
+## 作者
+
+Coder Agent (OpenClaw)
+
+## 许可
+
+MIT License
