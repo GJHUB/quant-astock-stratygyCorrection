@@ -104,15 +104,15 @@ INFO:optimizer:=================================================================
 INFO:optimizer:种群大小: 50
 INFO:optimizer:进化代数: 50
 INFO:optimizer:================================================================================
-INFO:optimizer:Gen   0: Best= 70.7286, Avg=  3.4041
-INFO:optimizer:Gen  10: Best= 70.7286, Avg= 68.8413
-INFO:optimizer:Gen  20: Best= 70.7286, Avg= 64.6823
-INFO:optimizer:Gen  30: Best= 70.7286, Avg= 66.7766
-INFO:optimizer:Gen  40: Best= 70.7286, Avg= 70.7286
-INFO:optimizer:Gen  49: Best= 70.7286, Avg= 66.4818
+INFO:optimizer:Gen   0: Best= 16.3645, Avg= -7.2844
+INFO:optimizer:Gen  10: Best= 26.9496, Avg= 25.9844
+INFO:optimizer:Gen  20: Best= 26.9496, Avg= 26.3416
+INFO:optimizer:Gen  30: Best= 26.9496, Avg= 26.1131
+INFO:optimizer:Gen  40: Best= 26.9496, Avg= 26.6913
+INFO:optimizer:Gen  49: Best= 54.8585, Avg= 26.7568
 INFO:optimizer:================================================================================
-INFO:optimizer:✅ 最优参数: {'theta_buy': 6.78, 'theta_sell': 18.24, 'alpha_vol': 0.75, 'rsi_thresh': 37, 'risk_per_trade': 0.02, 'max_position': 0.8}
-INFO:optimizer:   最优适应度: 70.7286
+INFO:optimizer:✅ 最优参数: {'theta_buy': 12.86, 'theta_sell': 14.69, 'alpha_vol': 0.5, 'rsi_thresh': 31, 'risk_per_trade': 0.02, 'max_position': 0.8}
+INFO:optimizer:   最优适应度: 54.8585
 INFO:optimizer:================================================================================
 INFO:__main__:
 [5/6] 加载测试集数据并运行回测...
@@ -188,20 +188,20 @@ INFO:backtest_engine:===========================================================
 INFO:backtest_engine:
 回测结果:
 INFO:backtest_engine:  初始资金: 1,000,000
-INFO:backtest_engine:  最终权益: 984,768
-INFO:backtest_engine:  总收益率: -1.52%
-INFO:backtest_engine:  年化收益率: -1.29%
-INFO:backtest_engine:  最大回撤: -1.52%
-INFO:backtest_engine:  夏普比率: -1.02
-INFO:backtest_engine:  换手率: 0.00/月
-INFO:backtest_engine:  胜率: 0.00%
-INFO:backtest_engine:  买入次数: 1
-INFO:backtest_engine:  卖出次数: 1
-INFO:backtest_engine:  盈利次数: 0
-INFO:backtest_engine:  平均盈亏: -14,770.46
-INFO:backtest_engine:  平均盈利: 0.00
-INFO:backtest_engine:  平均亏损: -14,770.46
-INFO:backtest_engine:  总交易成本: 564.14
+INFO:backtest_engine:  最终权益: 1,111,343
+INFO:backtest_engine:  总收益率: 11.13%
+INFO:backtest_engine:  年化收益率: 9.33%
+INFO:backtest_engine:  最大回撤: -5.27%
+INFO:backtest_engine:  夏普比率: 0.82
+INFO:backtest_engine:  换手率: 0.02/月
+INFO:backtest_engine:  胜率: 25.00%
+INFO:backtest_engine:  买入次数: 6
+INFO:backtest_engine:  卖出次数: 4
+INFO:backtest_engine:  盈利次数: 1
+INFO:backtest_engine:  平均盈亏: 32,214.39
+INFO:backtest_engine:  平均盈利: 198,290.65
+INFO:backtest_engine:  平均亏损: -23,144.37
+INFO:backtest_engine:  总交易成本: 3,376.99
 INFO:backtest_engine:================================================================================
 INFO:__main__:
 [6/6] 生成回测报告...
