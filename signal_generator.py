@@ -17,14 +17,16 @@ logger = logging.getLogger(__name__)
 
 def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     """
-    生成买卖信号（v3.1 - 大幅放宽阈值，保留T+1 shift）
+    生成买卖信号（v3.1+ - 加权评分系统，修复买点稀疏问题）
 
-    买入条件（v3.1大幅放宽）：
-    1. SMA60向上 OR Close > SMA60（趋势向上或在均线上方）
-    2. BIAS20 < -θ（负乖离率，阈值放宽至3%）
-    3. Vol < α × Vol_SMA10（缩量，阈值放宽至1.2倍）
-    4. RSI14 < thresh（超卖，阈值放宽至45）
-    5. MACD HIST > 0 OR HIST转正（放宽MACD条件）
+    买入逻辑：加权评分（0-1）+ 阈值触发
+    - 趋势权重: 0.25 (SMA60向上)
+    - BIAS权重: 0.25 (负乖离率超跌)
+    - 缩量权重: 0.15 (成交量萎缩)
+    - RSI权重: 0.15 (超卖)
+    - MACD权重: 0.10 (HIST转正)
+    - 阳线权重: 0.10 (收盘>开盘)
+    - 触发阈值: score > 0.70 (可配置)
 
     卖出条件：
     1. BIAS20 > 15%（正乖离率过大）
@@ -48,17 +50,42 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
 
     df = df.copy()
 
-    # 买入条件（v3.1 - 大幅放宽阈值）
-    buy_cond = (
-        ((df['sma60'] > df['sma60'].shift(5)) | (df['close'] > df['sma60'])) &  # 趋势向上或在均线上方
-        (df['bias20'] < -params['theta_buy']) &  # 负乖离率（放宽至3%）
-        (df['vol'] < params['alpha_vol'] * df['vol_sma10']) &  # 缩量（放宽至1.2倍）
-        (df['vol'] > 0) &  # 非停牌
-        (df['rsi14'] < params['rsi_thresh']) &  # RSI超卖（放宽至45）
-        ((df['macd_hist'] > 0) | (df['macd_hist'] > df['macd_hist'].shift(1)))  # MACD为正或转正
-    )
+    # 加权评分系统（0-1范围）- 调整权重分配以增加信号
+    score = pd.Series(0.0, index=df.index)
 
-    # 卖出条件（放宽）
+    # 1. 趋势权重 0.20（降低）
+    trend_up = (df['sma60'] > df['sma60'].shift(1)).astype(float)
+    score += 0.20 * trend_up
+
+    # 2. BIAS权重 0.30（提高，核心指标）- 负乖离率越大，分数越高
+    # 调整计算方式：当BIAS < -theta_buy时给满分，否则线性衰减
+    bias_score = np.clip((params['theta_buy'] - df['bias20']) / 15.0, 0, 1)
+    score += 0.30 * bias_score
+
+    # 3. 缩量权重 0.15
+    vol_shrink = (df['vol'] < params['alpha_vol'] * df['vol_sma10']).astype(float)
+    score += 0.15 * vol_shrink
+
+    # 4. RSI权重 0.20（提高）- RSI越低，分数越高
+    rsi_score = np.clip((params['rsi_thresh'] - df['rsi14']) / 30.0, 0, 1)
+    score += 0.20 * rsi_score
+
+    # 5. MACD权重 0.10
+    macd_turn = (df['macd_hist'] > 0).astype(float)
+    score += 0.10 * macd_turn
+
+    # 6. 阳线权重 0.05（降低）
+    is_yang = (df['close'] > df['open']).astype(float)
+    score += 0.05 * is_yang
+
+    # 流动性过滤（非停牌）
+    liquidity_ok = (df['vol'] > 0)
+
+    # 买入信号：score > 阈值 & 流动性OK
+    score_threshold = params.get('score_threshold', 0.70)
+    buy_cond = (score > score_threshold) & liquidity_ok
+
+    # 卖出条件（保持不变）
     sell_cond = (
         (df['bias20'] > params['theta_sell']) |  # 正乖离率过大（15%）
         (df['close'] < df['sma60'] * 0.92) |  # 跌破均线8%
@@ -67,6 +94,7 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
 
     # 生成信号
     df['signal'] = 0
+    df['signal_score'] = score  # 保存评分用于调试
     df.loc[buy_cond, 'signal'] = 1
     df.loc[sell_cond, 'signal'] = -1
 

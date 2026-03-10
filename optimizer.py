@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 def simple_backtest(data_dict: dict, params: dict) -> dict:
     """
-    简化回测（用于参数优化，v3.1 - 修复分母0问题）
+    简化回测（用于参数优化，v3.1+ - 增加交易次数统计）
 
     Parameters:
     -----------
@@ -30,7 +30,7 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
     Returns:
     --------
     dict
-        {'annual_return': float, 'max_drawdown': float, 'turnover': float}
+        {'annual_return': float, 'max_drawdown': float, 'turnover': float, 'num_trades': int}
     """
     from signal_generator import generate_signals
 
@@ -62,9 +62,9 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
         except Exception as e:
             continue
 
-    # v3.1: 防止分母为0，改进计算逻辑
+    # v3.1+: 防止分母为0，改进计算逻辑
     if total_trades == 0 or len(data_dict) == 0:
-        return {'annual_return': 0.0, 'max_drawdown': -0.01, 'turnover': 0.0}
+        return {'annual_return': 0.0, 'max_drawdown': -0.01, 'turnover': 0.0, 'num_trades': 0}
 
     avg_return = total_return / total_trades if total_trades > 0 else 0.0
     annual_return = avg_return * 252  # 年化
@@ -74,13 +74,14 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
     return {
         'annual_return': annual_return,
         'max_drawdown': max_drawdown,
-        'turnover': turnover
+        'turnover': turnover,
+        'num_trades': total_trades
     }
 
 
 def evaluate(individual: List, train_data: dict) -> tuple:
     """
-    评估函数：Calmar Ratio - 换手惩罚（v3.1 - 修复适应度0与分母0问题）
+    评估函数：Calmar Ratio - 交易次数惩罚 - 换手惩罚（v3.1+ - 强制最小30笔交易）
 
     Parameters:
     -----------
@@ -97,10 +98,11 @@ def evaluate(individual: List, train_data: dict) -> tuple:
     params = {
         'theta_buy': individual[0],
         'theta_sell': individual[1],
-        'alpha_vol': individual[2],
+        'alpha_vol': max(0.5, min(0.8, individual[2])),  # 强制约束
         'rsi_thresh': int(individual[3]),
         'risk_per_trade': 0.02,
-        'max_position': 0.8
+        'max_position': 0.8,
+        'score_threshold': 0.60  # 降低阈值以捕获更多信号
     }
 
     try:
@@ -109,17 +111,32 @@ def evaluate(individual: List, train_data: dict) -> tuple:
         annual_ret = results['annual_return']
         max_dd = results['max_drawdown']
         turnover = results['turnover']
+        num_trades = results['num_trades']
 
-        # Calmar Ratio - 换手惩罚（防止分母为0）
+        # Calmar Ratio（防止分母为0）
         if abs(max_dd) < 0.001:  # 避免分母接近0
             calmar = annual_ret * 10  # 低回撤时给予奖励
         else:
             calmar = annual_ret / abs(max_dd)
 
-        # 换手惩罚（>15%/月）
-        turnover_penalty = max(0, turnover - 0.15) * 10
+        # 交易次数惩罚（少于30笔显著惩罚）
+        min_trades = 30
+        if num_trades < min_trades:
+            trade_penalty = 10.0 * (min_trades - num_trades) / min_trades
+        else:
+            trade_penalty = 0.0
 
-        fitness = calmar - turnover_penalty
+        # 换手率惩罚（年化>200%即月均>16.7%）
+        turnover_penalty = max(0, turnover - 0.167) * 10
+
+        # alpha_vol极值惩罚（限制在0.5~0.8）
+        alpha_vol = individual[2]
+        if alpha_vol < 0.5 or alpha_vol > 0.8:
+            param_penalty = 5.0
+        else:
+            param_penalty = 0.0
+
+        fitness = calmar - trade_penalty - turnover_penalty - param_penalty
 
         # 防止适应度为0（给予小的随机扰动）
         if abs(fitness) < 0.001:
@@ -219,6 +236,9 @@ def optimize_parameters(train_data: dict) -> Dict:
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
             if random.random() < GA_CONFIG['crossover_prob']:
                 toolbox.mate(child1, child2)
+                # 强制约束 alpha_vol 在 0.5~0.8
+                child1[2] = max(0.5, min(0.8, child1[2]))
+                child2[2] = max(0.5, min(0.8, child2[2]))
                 del child1.fitness.values
                 del child2.fitness.values
         
@@ -226,6 +246,8 @@ def optimize_parameters(train_data: dict) -> Dict:
         for mutant in offspring:
             if random.random() < GA_CONFIG['mutation_prob']:
                 toolbox.mutate(mutant)
+                # 强制约束 alpha_vol 在 0.5~0.8
+                mutant[2] = max(0.5, min(0.8, mutant[2]))
                 del mutant.fitness.values
         
         # 评估

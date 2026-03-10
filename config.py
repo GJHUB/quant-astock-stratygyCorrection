@@ -31,23 +31,24 @@ FILTER_CONFIG = {
     'target_size': (20, 40)    # 目标过滤后大小
 }
 
-# 策略参数（v3.1 - 大幅放宽以捕获更多买点）
+# 策略参数（v3.1+ - 加权评分系统）
 STRATEGY_PARAMS = {
-    'theta_buy': 3.0,          # 买入乖离率阈值（%）- v3.1大幅放宽
+    'theta_buy': 6.0,          # 买入乖离率阈值（%）- 用于评分计算
     'theta_sell': 15.0,        # 卖出乖离率阈值（%）
-    'alpha_vol': 1.2,          # 缩量系数 - v3.1放宽（允许放量）
-    'rsi_thresh': 45,          # RSI阈值 - v3.1放宽
+    'alpha_vol': 0.65,         # 缩量系数 - 限制在0.5~0.8
+    'rsi_thresh': 35,          # RSI阈值 - 用于评分计算
+    'score_threshold': 0.60,   # 信号评分阈值（0-1）- 降低以捕获更多信号
     'risk_per_trade': 0.02,    # 单笔风险（%）
     'max_position': 0.8,       # 最大仓位（%）
     'initial_cash': 1000000    # 初始资金
 }
 
-# 参数优化空间（v3.1 - 防止极值）
+# 参数优化空间（v3.1+ - 加权评分系统）
 PARAM_SPACE = {
-    'theta_buy': (3.0, 8.0),    # 放宽范围
+    'theta_buy': (4.0, 10.0),   # BIAS评分参考值
     'theta_sell': (10.0, 20.0),
-    'alpha_vol': (0.5, 0.8),    # 避免过低值如0.03
-    'rsi_thresh': (30, 45)      # 放宽范围
+    'alpha_vol': (0.5, 0.8),    # 严格限制在0.5~0.8
+    'rsi_thresh': (30, 40)      # RSI评分参考值
 }
 
 # 遗传算法参数
