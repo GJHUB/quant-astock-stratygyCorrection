@@ -17,10 +17,10 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def generate_report(params: dict, results: dict, output_dir: str = None):
+def generate_report(params: dict, results: dict, output_dir: str = None, version: str = 'v3.1'):
     """
-    生成回测报告
-    
+    生成回测报告（v3.1 - 支持版本号）
+
     Parameters:
     -----------
     params : dict
@@ -29,26 +29,28 @@ def generate_report(params: dict, results: dict, output_dir: str = None):
         回测结果
     output_dir : str
         输出目录
+    version : str
+        版本号
     """
     if output_dir is None:
         output_dir = REPORT_CONFIG['output_dir']
-    
+
     os.makedirs(output_dir, exist_ok=True)
-    
+
     logger.info("=" * 80)
-    logger.info("生成回测报告")
+    logger.info(f"生成回测报告 {version}")
     logger.info("=" * 80)
-    
+
     # 生成净值曲线图
-    equity_curve_path = os.path.join(output_dir, 'equity_curve.png')
+    equity_curve_path = os.path.join(output_dir, f'equity_curve_{version}.png')
     plot_equity_curve(results['equity_curve'], equity_curve_path)
     logger.info(f"✓ 净值曲线图: {equity_curve_path}")
-    
+
     # 生成Markdown报告
-    report_path = os.path.join(output_dir, 'backtest_report.md')
-    write_markdown_report(params, results, report_path)
+    report_path = os.path.join(output_dir, f'backtest_report_{version}.md')
+    write_markdown_report(params, results, report_path, version)
     logger.info(f"✓ 回测报告: {report_path}")
-    
+
     logger.info("=" * 80)
     logger.info("✅ 报告生成完成")
     logger.info("=" * 80)
@@ -82,10 +84,10 @@ def plot_equity_curve(equity_df, output_path: str):
     plt.close()
 
 
-def write_markdown_report(params: dict, results: dict, output_path: str):
+def write_markdown_report(params: dict, results: dict, output_path: str, version: str = 'v3.1'):
     """
-    生成Markdown报告
-    
+    生成Markdown报告（v3.1 - 补充交易统计）
+
     Parameters:
     -----------
     params : dict
@@ -94,10 +96,14 @@ def write_markdown_report(params: dict, results: dict, output_path: str):
         回测结果
     output_path : str
         输出路径
+    version : str
+        版本号
     """
-    report = f"""# 量化策略回测报告
+    report = f"""# 量化策略回测报告 {version}
 
 **生成时间**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+**版本说明**: v3.1已移除政策情绪和北向资金筛选，聚焦纯技术指标和微观结构信号
 
 ---
 
@@ -121,7 +127,7 @@ def write_markdown_report(params: dict, results: dict, output_path: str):
 | 初始资金 | {results['initial_cash']:,.0f} 元 | - | - |
 | 最终权益 | {results['final_equity']:,.0f} 元 | - | - |
 | 总收益率 | {results['total_return']:.2%} | - | - |
-| 年化收益率 | {results['annual_return']:.2%} | > 20% | {'✅' if results['annual_return'] else '❌'} |
+| 年化收益率 | {results['annual_return']:.2%} | > 20% | {'✅' if results['annual_return'] > 0.20 else '❌'} |
 
 ### 2.2 风险指标
 
@@ -136,12 +142,18 @@ def write_markdown_report(params: dict, results: dict, output_path: str):
 |------|-----|------|------|
 | 换手率 | {results['turnover']:.2f}/月 | < 15%/月 | {'✅' if results['turnover'] < 0.15 else '❌'} |
 | 胜率 | {results['win_rate']:.2%} | > 60% | {'✅' if results['win_rate'] > 0.60 else '❌'} |
-| 总交易次数 | {results['total_trades']} | - | - |
+| 买入次数 | {results['total_trades']} | - | - |
+| 卖出次数 | {results.get('total_sell_trades', 0)} | - | - |
+| 盈利次数 | {results.get('winning_trades', 0)} | - | - |
+| 平均盈亏 | {results.get('avg_profit', 0):,.2f} 元 | - | - |
+| 平均盈利 | {results.get('avg_win', 0):,.2f} 元 | - | - |
+| 平均亏损 | {results.get('avg_loss', 0):,.2f} 元 | - | - |
+| 总交易成本 | {results.get('total_cost', 0):,.2f} 元 | - | - |
 
 ---
 
 ## 三、净值曲线
-![净值曲线](equity_curve.png)
+![净值曲线](equity_curve_{version}.png)
 
 ---
 
@@ -201,10 +213,19 @@ def write_markdown_report(params: dict, results: dict, output_path: str):
     report += f"""
 ### 建议
 
-1. 如果年化收益率不达标，考虑放宽买入条件或优化参数
-2. 如果最大回撤过大，考虑加强止损逻辑
-3. 如果胜率不高，考虑优化买点选择
-4. 如果换手率过高，考虑延长持仓周期
+1. 如果年化收益率不达标，考虑放宽买入条件（theta_buy降低至3-4%）
+2. 如果最大回撤过大，考虑加强止损逻辑或降低单笔风险
+3. 如果胜率不高，考虑优化买点选择（RSI阈值调整至30-35）
+4. 如果换手率过高，考虑延长持仓周期或提高卖出阈值
+
+### v3.1改进点
+
+- ✅ 移除政策情绪筛选（无法实时监控）
+- ✅ 移除北向资金筛选（数据不完整）
+- ✅ 放宽技术指标阈值（theta_buy=4%, rsi_thresh=35, alpha_vol=0.6）
+- ✅ 增强成本模型（佣金+印花税+滑点+过户费）
+- ✅ 严格T+1执行（信号延迟1天）
+- ✅ 停牌过滤（成交量=0时跳过）
 
 ---
 

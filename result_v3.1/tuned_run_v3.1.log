@@ -1,0 +1,291 @@
+INFO:__main__:================================================================================
+INFO:__main__:量化策略 v3.1 - 完整执行流程
+INFO:__main__:================================================================================
+INFO:__main__:
+[1/6] 构建股票池...
+/home/joe/quant/quantv3/stock_pool.py:57: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn)
+INFO:stock_pool:================================================================================
+INFO:stock_pool:股票池构建完成
+INFO:stock_pool:================================================================================
+INFO:stock_pool:股票数量: 82
+INFO:stock_pool:平均数据量: 281天
+INFO:stock_pool:平均日成交额: 21.55亿元
+INFO:stock_pool:最新数据日期: 20260306
+INFO:stock_pool:================================================================================
+INFO:stock_pool:
+前10只股票:
+INFO:stock_pool:  300308.SZ: 数据282天, 日均成交117.01亿
+INFO:stock_pool:  300502.SZ: 数据282天, 日均成交105.93亿
+INFO:stock_pool:  688256.SH: 数据282天, 日均成交84.50亿
+INFO:stock_pool:  601138.SH: 数据282天, 日均成交71.59亿
+INFO:stock_pool:  000063.SZ: 数据282天, 日均成交59.72亿
+INFO:stock_pool:  688981.SH: 数据276天, 日均成交59.18亿
+INFO:stock_pool:  688041.SH: 数据272天, 日均成交53.51亿
+INFO:stock_pool:  603986.SH: 数据282天, 日均成交53.34亿
+INFO:stock_pool:  300394.SZ: 数据282天, 日均成交52.17亿
+INFO:stock_pool:  688008.SH: 数据282天, 日均成交38.42亿
+INFO:__main__:
+[2/6] 划分数据集...
+INFO:__main__:训练集: 20230101 - 20241231
+INFO:__main__:测试集: 20250101 - 20260310
+INFO:__main__:
+[3/6] 加载训练集数据...
+INFO:data_loader:[1/20] 加载 300308.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[2/20] 加载 300502.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[3/20] 加载 688256.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[4/20] 加载 601138.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[5/20] 加载 000063.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[6/20] 加载 688981.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[7/20] 加载 688041.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[8/20] 加载 603986.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[9/20] 加载 300394.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[10/20] 加载 688008.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[11/20] 加载 002384.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[12/20] 加载 002837.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[13/20] 加载 002371.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[14/20] 加载 688012.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[15/20] 加载 000547.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[16/20] 加载 002156.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[17/20] 加载 300548.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[18/20] 加载 603501.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[19/20] 加载 600584.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[20/20] 加载 300442.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:✅ 成功加载 20/20 只股票
+INFO:__main__:
+[4/6] 参数优化（Walk-Forward优化）...
+INFO:__main__:注意：参数优化需要较长时间，请耐心等待...
+INFO:optimizer:================================================================================
+INFO:optimizer:Walk-Forward优化（3窗口）
+INFO:optimizer:================================================================================
+INFO:optimizer:================================================================================
+INFO:optimizer:参数优化（遗传算法）
+INFO:optimizer:================================================================================
+INFO:optimizer:种群大小: 50
+INFO:optimizer:进化代数: 50
+INFO:optimizer:================================================================================
+INFO:optimizer:Gen   0: Best= 70.7286, Avg=  3.4041
+INFO:optimizer:Gen  10: Best= 70.7286, Avg= 68.8413
+INFO:optimizer:Gen  20: Best= 70.7286, Avg= 64.6823
+INFO:optimizer:Gen  30: Best= 70.7286, Avg= 66.7766
+INFO:optimizer:Gen  40: Best= 70.7286, Avg= 70.7286
+INFO:optimizer:Gen  49: Best= 70.7286, Avg= 66.4818
+INFO:optimizer:================================================================================
+INFO:optimizer:✅ 最优参数: {'theta_buy': 6.78, 'theta_sell': 18.24, 'alpha_vol': 0.75, 'rsi_thresh': 37, 'risk_per_trade': 0.02, 'max_position': 0.8}
+INFO:optimizer:   最优适应度: 70.7286
+INFO:optimizer:================================================================================
+INFO:__main__:
+[5/6] 加载测试集数据并运行回测...
+INFO:data_loader:[1/20] 加载 300308.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[2/20] 加载 300502.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[3/20] 加载 688256.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[4/20] 加载 601138.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[5/20] 加载 000063.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[6/20] 加载 688981.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[7/20] 加载 688041.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[8/20] 加载 603986.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[9/20] 加载 300394.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[10/20] 加载 688008.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[11/20] 加载 002384.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[12/20] 加载 002837.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[13/20] 加载 002371.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[14/20] 加载 688012.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[15/20] 加载 000547.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[16/20] 加载 002156.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[17/20] 加载 300548.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[18/20] 加载 603501.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[19/20] 加载 600584.SH...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:[20/20] 加载 300442.SZ...
+/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
+INFO:data_loader:✅ 成功加载 20/20 只股票
+INFO:backtest_engine:================================================================================
+INFO:backtest_engine:回测引擎 v3.1 (移除政策和北向资金筛选)
+INFO:backtest_engine:================================================================================
+INFO:backtest_engine:股票数量: 20
+INFO:backtest_engine:初始资金: 1,000,000
+INFO:backtest_engine:成本模型: 佣金0.00025 + 印花税0.001(卖) + 滑点0.002
+INFO:backtest_engine:执行模式: T+1（信号延迟1天执行）
+INFO:backtest_engine:================================================================================
+INFO:backtest_engine:
+回测结果:
+INFO:backtest_engine:  初始资金: 1,000,000
+INFO:backtest_engine:  最终权益: 984,768
+INFO:backtest_engine:  总收益率: -1.52%
+INFO:backtest_engine:  年化收益率: -1.29%
+INFO:backtest_engine:  最大回撤: -1.52%
+INFO:backtest_engine:  夏普比率: -1.02
+INFO:backtest_engine:  换手率: 0.00/月
+INFO:backtest_engine:  胜率: 0.00%
+INFO:backtest_engine:  买入次数: 1
+INFO:backtest_engine:  卖出次数: 1
+INFO:backtest_engine:  盈利次数: 0
+INFO:backtest_engine:  平均盈亏: -14,770.46
+INFO:backtest_engine:  平均盈利: 0.00
+INFO:backtest_engine:  平均亏损: -14,770.46
+INFO:backtest_engine:  总交易成本: 564.14
+INFO:backtest_engine:================================================================================
+INFO:__main__:
+[6/6] 生成回测报告...
+INFO:report_generator:================================================================================
+INFO:report_generator:生成回测报告 v3.1
+INFO:report_generator:================================================================================
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 26085 (\N{CJK UNIFIED IDEOGRAPH-65E5}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 26399 (\N{CJK UNIFIED IDEOGRAPH-671F}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 26435 (\N{CJK UNIFIED IDEOGRAPH-6743}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 30410 (\N{CJK UNIFIED IDEOGRAPH-76CA}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 65288 (\N{FULLWIDTH LEFT PARENTHESIS}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 20803 (\N{CJK UNIFIED IDEOGRAPH-5143}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 65289 (\N{FULLWIDTH RIGHT PARENTHESIS}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 22238 (\N{CJK UNIFIED IDEOGRAPH-56DE}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 27979 (\N{CJK UNIFIED IDEOGRAPH-6D4B}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 20928 (\N{CJK UNIFIED IDEOGRAPH-51C0}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 20540 (\N{CJK UNIFIED IDEOGRAPH-503C}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 26354 (\N{CJK UNIFIED IDEOGRAPH-66F2}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 32447 (\N{CJK UNIFIED IDEOGRAPH-7EBF}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 21021 (\N{CJK UNIFIED IDEOGRAPH-521D}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 22987 (\N{CJK UNIFIED IDEOGRAPH-59CB}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 36164 (\N{CJK UNIFIED IDEOGRAPH-8D44}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 37329 (\N{CJK UNIFIED IDEOGRAPH-91D1}) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 26435 (\N{CJK UNIFIED IDEOGRAPH-6743}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 30410 (\N{CJK UNIFIED IDEOGRAPH-76CA}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 65288 (\N{FULLWIDTH LEFT PARENTHESIS}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 20803 (\N{CJK UNIFIED IDEOGRAPH-5143}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 65289 (\N{FULLWIDTH RIGHT PARENTHESIS}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 22238 (\N{CJK UNIFIED IDEOGRAPH-56DE}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 27979 (\N{CJK UNIFIED IDEOGRAPH-6D4B}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 20928 (\N{CJK UNIFIED IDEOGRAPH-51C0}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 20540 (\N{CJK UNIFIED IDEOGRAPH-503C}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 26354 (\N{CJK UNIFIED IDEOGRAPH-66F2}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 32447 (\N{CJK UNIFIED IDEOGRAPH-7EBF}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 26085 (\N{CJK UNIFIED IDEOGRAPH-65E5}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 26399 (\N{CJK UNIFIED IDEOGRAPH-671F}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 21021 (\N{CJK UNIFIED IDEOGRAPH-521D}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 22987 (\N{CJK UNIFIED IDEOGRAPH-59CB}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 36164 (\N{CJK UNIFIED IDEOGRAPH-8D44}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 37329 (\N{CJK UNIFIED IDEOGRAPH-91D1}) missing from font(s) DejaVu Sans.
+  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
+INFO:report_generator:✓ 净值曲线图: ./result_v3.1/equity_curve_v3.1.png
+INFO:report_generator:✓ 回测报告: ./result_v3.1/backtest_report_v3.1.md
+INFO:report_generator:================================================================================
+INFO:report_generator:✅ 报告生成完成
+INFO:report_generator:================================================================================
+INFO:__main__:
+================================================================================
+INFO:__main__:✅ 全部完成！
+INFO:__main__:================================================================================
+INFO:__main__:
+回测报告已生成，请查看 ./result_v3.1/ 目录
+INFO:__main__:- 回测报告: ./result_v3.1/backtest_report_v3.1.md
+INFO:__main__:- 净值曲线: ./result_v3.1/equity_curve_v3.1.png

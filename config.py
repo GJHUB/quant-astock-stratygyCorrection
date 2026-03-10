@@ -24,30 +24,30 @@ POOL_CONFIG = {
     ]
 }
 
-# 股票过滤参数
+# 股票过滤参数（v3.1 - 移除政策和北向资金）
 FILTER_CONFIG = {
-    'min_roe': 15.0,           # 最小ROE（%）
-    'min_netprofit_yoy': 20.0, # 最小净利润增长率（%）
     'sma200_ratio': 0.9,       # 价格/SMA200最小比例
+    'min_volume': 0,           # 最小成交量（非停牌）
     'target_size': (20, 40)    # 目标过滤后大小
 }
 
-# 策略参数（默认值 - 已放宽条件）
+# 策略参数（v3.1 - 大幅放宽以捕获更多买点）
 STRATEGY_PARAMS = {
-    'theta_buy': 3.0,          # 买入乖离率阈值（%）- 从6.0降到3.0
-    'theta_sell': 12.0,        # 卖出乖离率阈值（%）
-    'alpha_vol': 0.8,          # 缩量系数 - 从0.6提高到0.8
-    'rsi_thresh': 40,          # RSI阈值 - 从30提高到40
+    'theta_buy': 3.0,          # 买入乖离率阈值（%）- v3.1大幅放宽
+    'theta_sell': 15.0,        # 卖出乖离率阈值（%）
+    'alpha_vol': 1.2,          # 缩量系数 - v3.1放宽（允许放量）
+    'rsi_thresh': 45,          # RSI阈值 - v3.1放宽
     'risk_per_trade': 0.02,    # 单笔风险（%）
-    'max_position': 0.8        # 最大仓位（%）
+    'max_position': 0.8,       # 最大仓位（%）
+    'initial_cash': 1000000    # 初始资金
 }
 
-# 参数优化空间
+# 参数优化空间（v3.1 - 防止极值）
 PARAM_SPACE = {
-    'theta_buy': (4.0, 10.0),
+    'theta_buy': (3.0, 8.0),    # 放宽范围
     'theta_sell': (10.0, 20.0),
-    'alpha_vol': (0.4, 0.7),
-    'rsi_thresh': (20, 40)
+    'alpha_vol': (0.5, 0.8),    # 避免过低值如0.03
+    'rsi_thresh': (30, 45)      # 放宽范围
 }
 
 # 遗传算法参数
@@ -67,21 +67,25 @@ BACKTEST_CONFIG = {
     'slippage': 0.002          # 滑点
 }
 
-# 数据集划分
+# 数据集划分（v3.1 - 使用实际可用数据周期）
 DATASET_CONFIG = {
     'train': {
-        'start_date': '20240101',
-        'end_date': '20251231'
+        'start_date': '20230101',
+        'end_date': '20241231'
+    },
+    'val': {
+        'start_date': '20250101',
+        'end_date': '20250630'
     },
     'test': {
-        'start_date': '20260101',
-        'end_date': '20260309'
+        'start_date': '20250101',
+        'end_date': '20260310'
     }
 }
 
-# 报告配置
+# 报告配置（v3.1）
 REPORT_CONFIG = {
-    'output_dir': './reports',
+    'output_dir': './result_v3.1',
     'figure_dpi': 300,
     'figure_size': (12, 6)
 }
