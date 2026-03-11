@@ -232,8 +232,9 @@ def optimize_parameters(train_data: dict) -> Dict:
     logger.info("=" * 80)
 
     # 创建适应度和个体类
+    # v3.3: 返回6个值 (fitness, num_trades, annual_return, max_drawdown, avg_score, score_std)
     # 仅第一维(适应度)参与优化；其余维度给极小权重用于携带日志观测值（避免0权重除零）
-    creator.create("FitnessMax", base.Fitness, weights=(1.0, 1e-12, 1e-12, 1e-12))
+    creator.create("FitnessMax", base.Fitness, weights=(1.0, 1e-12, 1e-12, 1e-12, 1e-12, 1e-12))
     creator.create("Individual", list, fitness=creator.FitnessMax)
 
     toolbox = base.Toolbox()
