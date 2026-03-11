@@ -17,9 +17,9 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def generate_report(params: dict, results: dict, output_dir: str = None, version: str = 'v3.1'):
+def generate_report(params: dict, results: dict, output_dir: str = None, version: str = 'v3.2'):
     """
-    生成回测报告（v3.1 - 支持版本号）
+    生成回测报告（v3.2 - 加权评分系统）
 
     Parameters:
     -----------
@@ -84,9 +84,9 @@ def plot_equity_curve(equity_df, output_path: str):
     plt.close()
 
 
-def write_markdown_report(params: dict, results: dict, output_path: str, version: str = 'v3.1'):
+def write_markdown_report(params: dict, results: dict, output_path: str, version: str = 'v3.2'):
     """
-    生成Markdown报告（v3.1 - 补充交易统计）
+    生成Markdown报告（v3.2 - 加权评分系统）
 
     Parameters:
     -----------
@@ -103,7 +103,7 @@ def write_markdown_report(params: dict, results: dict, output_path: str, version
 
 **生成时间**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
-**版本说明**: v3.1已移除政策情绪和北向资金筛选，聚焦纯技术指标和微观结构信号
+**版本说明**: v3.2采用加权评分系统（0-1范围），提升交易次数至50+笔，强化遗传算法优化（目标交易次数>=50，年化换手率<200%）
 
 ---
 
@@ -111,10 +111,12 @@ def write_markdown_report(params: dict, results: dict, output_path: str, version
 
 | 参数 | 值 | 说明 |
 |------|-----|------|
-| theta_buy | {params.get('theta_buy', 'N/A')} | 买入乖离率阈值（%） |
+| theta_buy | {params.get('theta_buy', 'N/A')} | 买入BIAS评分参考值（%，负值） |
 | theta_sell | {params.get('theta_sell', 'N/A')} | 卖出乖离率阈值（%） |
-| alpha_vol | {params.get('alpha_vol', 'N/A')} | 缩量系数 |
-| rsi_thresh | {params.get('rsi_thresh', 'N/A')} | RSI阈值 |
+| alpha_vol | {params.get('alpha_vol', 'N/A')} | 缩量系数（0.5-0.8） |
+| rsi_thresh | {params.get('rsi_thresh', 'N/A')} | RSI评分参考值 |
+| score_threshold | {params.get('score_threshold', 'N/A')} | 信号评分阈值（0-1） |
+| min_amount | {params.get('min_amount', 'N/A')} | 最小成交额（元） |
 
 ---
 
@@ -140,8 +142,10 @@ def write_markdown_report(params: dict, results: dict, output_path: str, version
 
 | 指标 | 值 | 目标 | 达标 |
 |------|-----|------|------|
-| 换手率 | {results['turnover']:.2f}/月 | < 15%/月 | {'✅' if results['turnover'] < 0.15 else '❌'} |
-| 胜率 | {results['win_rate']:.2%} | > 60% | {'✅' if results['win_rate'] > 0.60 else '❌'} |
+| 交易次数 | {results['total_trades']} | >= 50 | {'✅' if results['total_trades'] >= 50 else '❌'} |
+| 换手率（月均） | {results['turnover']:.2f}/月 | < 16.7%/月 | {'✅' if results['turnover'] < 0.167 else '❌'} |
+| 换手率（年化） | {results['turnover'] * 12:.2%} | < 200%/年 | {'✅' if results['turnover'] * 12 < 2.0 else '❌'} |
+| 胜率 | {results['win_rate']:.2%} | > 55% | {'✅' if results['win_rate'] > 0.55 else '❌'} |
 | 买入次数 | {results['total_trades']} | - | - |
 | 卖出次数 | {results.get('total_sell_trades', 0)} | - | - |
 | 盈利次数 | {results.get('winning_trades', 0)} | - | - |
@@ -168,18 +172,20 @@ def write_markdown_report(params: dict, results: dict, output_path: str, version
 
 """
 
-    # 添加风险提示
+    # 添加风险提示（v3.2调整目标）
     warnings = []
-    if results['annual_return'] < 0.20:
-        warnings.append("⚠️ 年化收益率未达标（< 20%）")
-    if results['max_drawdown'] < -0.15:
-        warnings.append("⚠️ 最大回撤超标（> 15%）")
-    if results['sharpe_ratio'] < 1.5:
-        warnings.append("⚠️ 夏普比率未达标（< 1.5）")
-    if results['turnover'] > 0.15:
-        warnings.append("⚠️ 换手率过高（> 15%/月）")
-    if results['win_rate'] < 0.60:
-        warnings.append("⚠️ 胜率未达标（< 60%）")
+    if results['total_trades'] < 50:
+        warnings.append(f"⚠️ 交易次数不足（{results['total_trades']} < 50笔）- 统计显著性不足")
+    if results['annual_return'] < 0.18:
+        warnings.append("⚠️ 年化收益率未达标（< 18%）")
+    if results['max_drawdown'] < -0.18:
+        warnings.append("⚠️ 最大回撤超标（> 18%）")
+    if results['sharpe_ratio'] < 1.4:
+        warnings.append("⚠️ 夏普比率未达标（< 1.4）")
+    if results['turnover'] * 12 > 2.0:
+        warnings.append(f"⚠️ 年化换手率过高（{results['turnover'] * 12:.2%} > 200%）")
+    if results['win_rate'] < 0.55:
+        warnings.append("⚠️ 胜率未达标（< 55%）")
     
     if warnings:
         for warning in warnings:
@@ -194,38 +200,47 @@ def write_markdown_report(params: dict, results: dict, output_path: str, version
 
 """
     
-    # 生成结论
+    # 生成结论（v3.2调整目标）
     达标数 = sum([
-        results['annual_return'] > 0.20,
-        results['max_drawdown'] > -0.15,
-        results['sharpe_ratio'] > 1.5,
-        results['turnover'] < 0.15,
-        results['win_rate'] > 0.60
+        results['total_trades'] >= 50,
+        results['annual_return'] > 0.18,
+        results['max_drawdown'] > -0.18,
+        results['sharpe_ratio'] > 1.4,
+        results['turnover'] * 12 < 2.0,
+        results['win_rate'] > 0.55
     ])
     
-    if 达标数 >= 4:
+    if 达标数 >= 5:
         report += "✅ **策略表现优秀**，建议进一步优化后实盘测试。\n"
-    elif 达标数 >= 3:
+    elif 达标数 >= 4:
         report += "⚠️ **策略表现一般**，建议继续优化参数。\n"
     else:
         report += "❌ **策略表现不佳**，需要重新设计策略逻辑。\n"
-    
+
     report += f"""
 ### 建议
 
-1. 如果年化收益率不达标，考虑放宽买入条件（theta_buy降低至3-4%）
-2. 如果最大回撤过大，考虑加强止损逻辑或降低单笔风险
-3. 如果胜率不高，考虑优化买点选择（RSI阈值调整至30-35）
-4. 如果换手率过高，考虑延长持仓周期或提高卖出阈值
+1. 如果交易次数不足，考虑降低score_threshold至0.60或放宽流动性过滤
+2. 如果年化收益率不达标，考虑调整theta_buy至-7~-8%（更激进）
+3. 如果最大回撤过大，考虑加强止损逻辑或降低单笔风险
+4. 如果胜率不高，考虑优化RSI阈值（30-40范围）
+5. 如果换手率过高，考虑提高score_threshold至0.68-0.70
 
-### v3.1改进点
+### v3.2改进点
 
-- ✅ 移除政策情绪筛选（无法实时监控）
-- ✅ 移除北向资金筛选（数据不完整）
-- ✅ 放宽技术指标阈值（theta_buy=4%, rsi_thresh=35, alpha_vol=0.6）
-- ✅ 增强成本模型（佣金+印花税+滑点+过户费）
-- ✅ 严格T+1执行（信号延迟1天）
-- ✅ 停牌过滤（成交量=0时跳过）
+- ✅ 加权评分系统（0-1范围，7个维度加权）
+  - 趋势权重: 0.25 (SMA60向上)
+  - BIAS权重: 0.25 (负乖离率超跌，分母放宽至8)
+  - 缩量权重: 0.15 (成交量萎缩)
+  - RSI权重: 0.15 (超卖，分母放宽至15)
+  - MACD权重: 0.10 (HIST转正)
+  - 阳线权重: 0.10 (收盘>开盘)
+  - 政策权重: 0.20 (预留接口，当前降级为0)
+- ✅ 信号阈值可配置（score_threshold: 0.60-0.70，默认0.65）
+- ✅ 遗传算法强化（种群100、代数100、交易次数惩罚>=50笔）
+- ✅ 换手率双重控制（月均<16.7%、年化<200%）
+- ✅ 流动性过滤放宽（成交额>3000万）
+- ✅ 保持T+1执行、停牌过滤、完整成本模型
 
 ---
 

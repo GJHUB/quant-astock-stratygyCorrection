@@ -46,8 +46,6 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     - BIAS权重: 0.25 (负乖离率超跌，分母放宽至8)
     - 缩量权重: 0.15 (成交量萎缩)
     - RSI权重: 0.15 (超卖，分母放宽至15)
-    - MACD权重: 0.10 (HIST转正)
-    - 阳线权重: 0.10 (收盘>开盘)
     - 政策权重: 0.20 (预留接口，当前降级为0)
     - 触发阈值: score > 0.65 (可配置0.60-0.70)
 
@@ -93,15 +91,7 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     rsi_score = np.clip((params['rsi_thresh'] - df['rsi14']) / 15.0, 0, 1)
     score += 0.15 * rsi_score
 
-    # 5. MACD权重 0.10
-    macd_turn = (df['macd_hist'] > 0).astype(float)
-    score += 0.10 * macd_turn
-
-    # 6. 阳线权重 0.10
-    is_yang = (df['close'] > df['open']).astype(float)
-    score += 0.10 * is_yang
-
-    # 7. 政策权重 0.20（预留接口，支持安全降级）
+    # 5. 政策权重 0.20（预留接口，支持安全降级）
     try:
         policy_score = get_policy_score(df.index)
         score += 0.20 * np.clip(policy_score, 0, 1)

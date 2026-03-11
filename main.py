@@ -16,12 +16,41 @@ from data_loader import load_multiple_stocks
 from optimizer import optimize_parameters_wfo
 from backtest_engine import run_backtest
 from report_generator import generate_report
+from signal_generator import generate_signals
 
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+
+def log_stock_quant_metrics(data_dict: dict, params: dict, title: str = "训练集指标快照"):
+    """打印每只股票的价格、核心技术指标、量化评分与信号统计"""
+    logger.info("\n" + "=" * 80)
+    logger.info(f"{title}（逐股）")
+    logger.info("字段: ts_code | close | bias20 | rsi14 | macd_hist | signal_score(last) | buy_days | sell_days")
+    logger.info("=" * 80)
+
+    for ts_code, df in data_dict.items():
+        try:
+            sig = generate_signals(df.copy(), params)
+            last = sig.iloc[-1]
+            close = float(last.get('close', 0) or 0)
+            bias20 = float(last.get('bias20', 0) or 0)
+            rsi14 = float(last.get('rsi14', 0) or 0)
+            macd_hist = float(last.get('macd_hist', 0) or 0)
+            score_last = float(last.get('signal_score', 0) or 0)
+            buy_days = int((sig['signal'] == 1).sum())
+            sell_days = int((sig['signal'] == -1).sum())
+
+            logger.info(
+                f"{ts_code} | close={close:.4f} | bias20={bias20:.4f} | "
+                f"rsi14={rsi14:.2f} | macd_hist={macd_hist:.4f} | "
+                f"score={score_last:.4f} | buy_days={buy_days} | sell_days={sell_days}"
+            )
+        except Exception as e:
+            logger.warning(f"{ts_code} 指标快照失败: {e}")
 
 
 def main():
@@ -98,6 +127,9 @@ def main():
             return
 
         logger.info(f"成功加载 {len(wfo_data)} 只股票数据")
+
+        # 训练集逐股指标快照（用于诊断无交易问题）
+        log_stock_quant_metrics(wfo_data, STRATEGY_PARAMS, title="训练集价格/技术指标/量化指标快照")
 
         # 4. 参数优化（WFO）
         logger.info("\n[4/6] 参数优化（Walk-Forward优化）...")

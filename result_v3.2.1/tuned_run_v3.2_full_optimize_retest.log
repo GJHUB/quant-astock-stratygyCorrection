@@ -412,6 +412,130 @@ INFO:data_loader:[119/119] 加载 688408.SH...
 INFO:data_loader:✅ 成功加载 119/119 只股票
 INFO:__main__:成功加载 119 只股票数据
 INFO:__main__:
+================================================================================
+INFO:__main__:训练集价格/技术指标/量化指标快照（逐股）
+INFO:__main__:字段: ts_code | close | bias20 | rsi14 | macd_hist | signal_score(last) | buy_days | sell_days
+INFO:__main__:================================================================================
+INFO:__main__:002009.SZ | close=28.5300 | bias20=-7.7072 | rsi14=38.75 | macd_hist=-1.8584 | score=nan | buy_days=0 | sell_days=705
+INFO:__main__:603331.SH | close=17.2800 | bias20=-2.2320 | rsi14=47.26 | macd_hist=-0.7181 | score=nan | buy_days=0 | sell_days=334
+INFO:__main__:300124.SZ | close=71.0400 | bias20=-3.5674 | rsi14=32.40 | macd_hist=-0.7717 | score=nan | buy_days=0 | sell_days=440
+INFO:__main__:002050.SZ | close=48.4400 | bias20=-4.4934 | rsi14=37.87 | macd_hist=-0.9571 | score=nan | buy_days=0 | sell_days=440
+INFO:__main__:600580.SH | close=42.3000 | bias20=-2.4458 | rsi14=43.44 | macd_hist=-0.4511 | score=nan | buy_days=0 | sell_days=299
+INFO:__main__:002139.SZ | close=12.7600 | bias20=-1.0546 | rsi14=44.94 | macd_hist=-0.0375 | score=nan | buy_days=0 | sell_days=611
+INFO:__main__:300718.SZ | close=76.8400 | bias20=-2.2267 | rsi14=42.63 | macd_hist=-0.8792 | score=nan | buy_days=0 | sell_days=403
+INFO:__main__:300695.SZ | close=77.4100 | bias20=-0.4943 | rsi14=41.47 | macd_hist=-0.0829 | score=nan | buy_days=0 | sell_days=276
+INFO:__main__:300817.SZ | close=19.9900 | bias20=-3.3389 | rsi14=35.87 | macd_hist=-0.3041 | score=nan | buy_days=0 | sell_days=191
+INFO:__main__:688322.SH | close=84.2000 | bias20=-6.3378 | rsi14=32.27 | macd_hist=-2.2778 | score=nan | buy_days=0 | sell_days=362
+INFO:__main__:300296.SZ | close=8.5500 | bias20=10.2088 | rsi14=65.84 | macd_hist=0.1471 | score=nan | buy_days=0 | sell_days=467
+INFO:__main__:688469.SH | close=7.2600 | bias20=-2.1695 | rsi14=40.98 | macd_hist=-0.1561 | score=nan | buy_days=0 | sell_days=148
+INFO:__main__:603893.SH | close=175.5600 | bias20=-1.7261 | rsi14=41.76 | macd_hist=-2.3466 | score=nan | buy_days=0 | sell_days=576
+INFO:__main__:688256.SH | close=1147.1000 | bias20=2.2092 | rsi14=57.65 | macd_hist=26.5100 | score=nan | buy_days=0 | sell_days=564
+INFO:__main__:688041.SH | close=247.5300 | bias20=-0.8085 | rsi14=48.56 | macd_hist=-3.6486 | score=nan | buy_days=0 | sell_days=209
+INFO:__main__:605111.SH | close=43.2200 | bias20=-3.9769 | rsi14=43.26 | macd_hist=-1.6601 | score=nan | buy_days=0 | sell_days=205
+INFO:__main__:002409.SZ | close=90.0100 | bias20=-1.6897 | rsi14=49.31 | macd_hist=-1.1887 | score=nan | buy_days=0 | sell_days=585
+INFO:__main__:301209.SZ | close=93.9000 | bias20=-2.1977 | rsi14=41.89 | macd_hist=-0.3073 | score=nan | buy_days=0 | sell_days=162
+INFO:__main__:002549.SZ | close=20.5600 | bias20=-1.8990 | rsi14=44.16 | macd_hist=0.0142 | score=nan | buy_days=0 | sell_days=674
+INFO:__main__:688195.SH | close=228.0000 | bias20=2.6798 | rsi14=44.11 | macd_hist=-2.7785 | score=nan | buy_days=0 | sell_days=454
+INFO:__main__:600353.SH | close=17.8500 | bias20=-3.5708 | rsi14=33.03 | macd_hist=-0.4486 | score=nan | buy_days=0 | sell_days=375
+INFO:__main__:688167.SH | close=341.5000 | bias20=1.5203 | rsi14=49.28 | macd_hist=-18.5911 | score=nan | buy_days=0 | sell_days=488
+INFO:__main__:688630.SH | close=192.7200 | bias20=7.6690 | rsi14=68.16 | macd_hist=-0.0018 | score=nan | buy_days=0 | sell_days=441
+INFO:__main__:301421.SZ | close=95.5000 | bias20=1.1872 | rsi14=49.89 | macd_hist=0.2424 | score=nan | buy_days=0 | sell_days=191
+INFO:__main__:688502.SH | close=345.8000 | bias20=-3.1722 | rsi14=41.86 | macd_hist=-3.7895 | score=nan | buy_days=0 | sell_days=286
+INFO:__main__:300260.SZ | close=52.3100 | bias20=-3.4417 | rsi14=44.44 | macd_hist=-0.4484 | score=nan | buy_days=0 | sell_days=458
+INFO:__main__:002371.SZ | close=457.0000 | bias20=-3.2205 | rsi14=37.64 | macd_hist=-4.8165 | score=nan | buy_days=0 | sell_days=293
+INFO:__main__:688012.SH | close=327.2900 | bias20=-5.5958 | rsi14=36.14 | macd_hist=-7.7353 | score=nan | buy_days=0 | sell_days=594
+INFO:__main__:688981.SH | close=107.2800 | bias20=-5.2251 | rsi14=28.35 | macd_hist=-1.5360 | score=nan | buy_days=0 | sell_days=269
+INFO:__main__:603986.SH | close=285.4400 | bias20=-2.1413 | rsi14=46.56 | macd_hist=-7.8943 | score=nan | buy_days=0 | sell_days=511
+INFO:__main__:688530.SH | close=34.7400 | bias20=8.7035 | rsi14=62.23 | macd_hist=-0.7137 | score=nan | buy_days=0 | sell_days=170
+INFO:__main__:688147.SH | close=76.5900 | bias20=-4.5780 | rsi14=54.52 | macd_hist=-2.5804 | score=nan | buy_days=0 | sell_days=286
+INFO:__main__:688519.SH | close=115.3500 | bias20=13.8798 | rsi14=75.02 | macd_hist=0.0202 | score=nan | buy_days=0 | sell_days=478
+INFO:__main__:688025.SH | close=263.6800 | bias20=17.1130 | rsi14=66.48 | macd_hist=5.0626 | score=nan | buy_days=0 | sell_days=574
+INFO:__main__:688081.SH | close=40.3800 | bias20=-1.9236 | rsi14=44.57 | macd_hist=-1.0617 | score=nan | buy_days=0 | sell_days=261
+INFO:__main__:688308.SH | close=95.3100 | bias20=50.8666 | rsi14=91.08 | macd_hist=4.4124 | score=nan | buy_days=0 | sell_days=342
+INFO:__main__:688480.SH | close=122.0000 | bias20=16.1120 | rsi14=68.49 | macd_hist=1.9332 | score=nan | buy_days=0 | sell_days=187
+INFO:__main__:300570.SZ | close=130.0600 | bias20=-2.7578 | rsi14=45.11 | macd_hist=-3.8868 | score=nan | buy_days=0 | sell_days=545
+INFO:__main__:300394.SZ | close=340.4800 | bias20=9.1739 | rsi14=60.04 | macd_hist=-4.7239 | score=nan | buy_days=0 | sell_days=331
+INFO:__main__:301269.SZ | close=97.3700 | bias20=-1.6231 | rsi14=46.37 | macd_hist=-0.3924 | score=nan | buy_days=0 | sell_days=187
+INFO:__main__:300661.SZ | close=73.1000 | bias20=6.5543 | rsi14=58.74 | macd_hist=-0.1043 | score=nan | buy_days=0 | sell_days=293
+INFO:__main__:301099.SZ | close=44.2800 | bias20=-2.6107 | rsi14=40.39 | macd_hist=-0.6063 | score=nan | buy_days=0 | sell_days=120
+INFO:__main__:688486.SH | close=69.8000 | bias20=-6.7119 | rsi14=36.68 | macd_hist=-1.8202 | score=nan | buy_days=0 | sell_days=108
+INFO:__main__:688629.SH | close=116.1100 | bias20=8.1587 | rsi14=63.84 | macd_hist=1.0715 | score=nan | buy_days=0 | sell_days=180
+INFO:__main__:688525.SH | close=213.7500 | bias20=24.7261 | rsi14=69.87 | macd_hist=7.6400 | score=nan | buy_days=0 | sell_days=303
+INFO:__main__:688766.SH | close=259.6000 | bias20=-1.0748 | rsi14=45.43 | macd_hist=-10.1502 | score=nan | buy_days=0 | sell_days=172
+INFO:__main__:688110.SH | close=151.8000 | bias20=14.9156 | rsi14=66.15 | macd_hist=2.6338 | score=nan | buy_days=0 | sell_days=359
+INFO:__main__:688072.SH | close=367.3300 | bias20=5.0454 | rsi14=66.63 | macd_hist=7.0467 | score=nan | buy_days=0 | sell_days=204
+INFO:__main__:300604.SZ | close=132.6500 | bias20=0.6109 | rsi14=51.72 | macd_hist=-2.4983 | score=nan | buy_days=0 | sell_days=577
+INFO:__main__:688010.SH | close=30.8900 | bias20=-1.0396 | rsi14=57.82 | macd_hist=-0.0180 | score=nan | buy_days=0 | sell_days=445
+INFO:__main__:300666.SZ | close=154.1800 | bias20=9.4077 | rsi14=69.33 | macd_hist=-1.1765 | score=nan | buy_days=0 | sell_days=533
+INFO:__main__:688233.SH | close=82.6500 | bias20=-4.9049 | rsi14=39.71 | macd_hist=-2.5215 | score=nan | buy_days=0 | sell_days=568
+INFO:__main__:688401.SH | close=53.0500 | bias20=0.0594 | rsi14=54.79 | macd_hist=-0.0788 | score=nan | buy_days=0 | sell_days=190
+INFO:__main__:688138.SH | close=29.2300 | bias20=-1.9802 | rsi14=48.66 | macd_hist=-0.4124 | score=nan | buy_days=0 | sell_days=505
+INFO:__main__:688047.SH | close=157.0000 | bias20=0.7114 | rsi14=44.41 | macd_hist=-2.4842 | score=nan | buy_days=0 | sell_days=249
+INFO:__main__:688008.SH | close=152.9800 | bias20=-7.3407 | rsi14=33.17 | macd_hist=-6.6274 | score=nan | buy_days=0 | sell_days=428
+INFO:__main__:002881.SZ | close=49.1400 | bias20=5.1708 | rsi14=57.48 | macd_hist=0.0146 | score=nan | buy_days=0 | sell_days=444
+INFO:__main__:300476.SZ | close=289.0000 | bias20=4.5259 | rsi14=57.37 | macd_hist=2.6629 | score=nan | buy_days=0 | sell_days=526
+INFO:__main__:002315.SZ | close=43.8200 | bias20=-5.7776 | rsi14=31.27 | macd_hist=-0.7245 | score=nan | buy_days=0 | sell_days=310
+INFO:__main__:001308.SZ | close=20.8000 | bias20=-2.5213 | rsi14=41.32 | macd_hist=-0.2503 | score=nan | buy_days=0 | sell_days=139
+INFO:__main__:300002.SZ | close=10.6500 | bias20=-8.2687 | rsi14=30.64 | macd_hist=-0.3302 | score=nan | buy_days=0 | sell_days=636
+INFO:__main__:002517.SZ | close=21.6700 | bias20=-5.3319 | rsi14=43.95 | macd_hist=-0.4125 | score=nan | buy_days=0 | sell_days=593
+INFO:__main__:601138.SH | close=54.3600 | bias20=-1.5547 | rsi14=45.03 | macd_hist=0.1284 | score=nan | buy_days=0 | sell_days=359
+INFO:__main__:688017.SH | close=215.8000 | bias20=-3.4959 | rsi14=42.11 | macd_hist=-7.2334 | score=nan | buy_days=0 | sell_days=491
+INFO:__main__:002472.SZ | close=39.5600 | bias20=-3.6098 | rsi14=34.87 | macd_hist=-0.4890 | score=nan | buy_days=0 | sell_days=518
+INFO:__main__:301368.SZ | close=59.7100 | bias20=-3.7238 | rsi14=36.24 | macd_hist=-1.1057 | score=nan | buy_days=0 | sell_days=303
+INFO:__main__:002896.SZ | close=78.7500 | bias20=-3.2199 | rsi14=44.13 | macd_hist=-0.9434 | score=nan | buy_days=0 | sell_days=288
+INFO:__main__:603228.SH | close=61.9300 | bias20=-2.1844 | rsi14=48.15 | macd_hist=0.0592 | score=nan | buy_days=0 | sell_days=377
+INFO:__main__:002463.SZ | close=76.6500 | bias20=4.0712 | rsi14=57.79 | macd_hist=0.3174 | score=nan | buy_days=0 | sell_days=417
+INFO:__main__:600183.SH | close=64.4100 | bias20=-2.8961 | rsi14=48.99 | macd_hist=-0.6853 | score=nan | buy_days=0 | sell_days=357
+INFO:__main__:600171.SH | close=31.4400 | bias20=1.5487 | rsi14=48.06 | macd_hist=-0.1336 | score=nan | buy_days=0 | sell_days=524
+INFO:__main__:002185.SZ | close=14.1700 | bias20=-0.8536 | rsi14=51.22 | macd_hist=-0.2838 | score=nan | buy_days=0 | sell_days=431
+INFO:__main__:600360.SH | close=9.4900 | bias20=4.6018 | rsi14=64.55 | macd_hist=-0.0378 | score=nan | buy_days=0 | sell_days=466
+INFO:__main__:600118.SH | close=94.6800 | bias20=3.2002 | rsi14=53.74 | macd_hist=0.3367 | score=nan | buy_days=0 | sell_days=420
+INFO:__main__:600879.SH | close=26.4900 | bias20=3.3857 | rsi14=51.95 | macd_hist=-0.0755 | score=nan | buy_days=0 | sell_days=323
+INFO:__main__:600501.SH | close=26.0800 | bias20=-2.3312 | rsi14=37.87 | macd_hist=-0.1194 | score=nan | buy_days=0 | sell_days=546
+INFO:__main__:002025.SZ | close=56.0300 | bias20=7.4112 | rsi14=58.70 | macd_hist=0.4357 | score=nan | buy_days=0 | sell_days=464
+INFO:__main__:600677.SH | close=3.0100 | bias20=-23.0966 | rsi14=17.86 | macd_hist=-0.1182 | score=nan | buy_days=0 | sell_days=238
+INFO:__main__:002413.SZ | close=15.7800 | bias20=5.4108 | rsi14=53.16 | macd_hist=0.0975 | score=nan | buy_days=0 | sell_days=607
+INFO:__main__:300456.SZ | close=49.6700 | bias20=-6.1422 | rsi14=39.31 | macd_hist=-0.8985 | score=nan | buy_days=0 | sell_days=626
+INFO:__main__:300053.SZ | close=18.9000 | bias20=-7.6743 | rsi14=29.35 | macd_hist=-0.6052 | score=nan | buy_days=0 | sell_days=694
+INFO:__main__:603698.SH | close=35.1000 | bias20=-3.2751 | rsi14=34.49 | macd_hist=-0.3225 | score=nan | buy_days=0 | sell_days=337
+INFO:__main__:688066.SH | close=23.6900 | bias20=-5.0710 | rsi14=42.21 | macd_hist=0.3435 | score=nan | buy_days=0 | sell_days=474
+INFO:__main__:688388.SH | close=45.4500 | bias20=2.9130 | rsi14=55.86 | macd_hist=0.1093 | score=nan | buy_days=0 | sell_days=397
+INFO:__main__:300474.SZ | close=67.4900 | bias20=-4.8599 | rsi14=26.94 | macd_hist=-0.8648 | score=nan | buy_days=0 | sell_days=457
+INFO:__main__:688281.SH | close=88.1700 | bias20=-7.3055 | rsi14=37.12 | macd_hist=-3.1304 | score=nan | buy_days=0 | sell_days=88
+INFO:__main__:300101.SZ | close=25.0800 | bias20=-8.0089 | rsi14=28.91 | macd_hist=-0.7577 | score=nan | buy_days=0 | sell_days=690
+INFO:__main__:300555.SZ | close=14.0700 | bias20=-0.3082 | rsi14=36.77 | macd_hist=-0.1132 | score=nan | buy_days=0 | sell_days=598
+INFO:__main__:300114.SZ | close=72.1800 | bias20=4.6944 | rsi14=57.20 | macd_hist=1.0403 | score=nan | buy_days=0 | sell_days=512
+INFO:__main__:601989.SH | close=5.1000 | bias20=5.7982 | rsi14=65.79 | macd_hist=0.0656 | score=nan | buy_days=0 | sell_days=292
+INFO:__main__:601012.SH | close=18.5600 | bias20=1.1885 | rsi14=40.88 | macd_hist=-0.0386 | score=nan | buy_days=0 | sell_days=512
+INFO:__main__:688599.SH | close=19.0900 | bias20=-2.3504 | rsi14=33.60 | macd_hist=-0.4656 | score=nan | buy_days=0 | sell_days=508
+INFO:__main__:300274.SZ | close=156.1000 | bias20=3.8534 | rsi14=52.94 | macd_hist=2.0805 | score=nan | buy_days=0 | sell_days=470
+INFO:__main__:002459.SZ | close=12.3800 | bias20=1.9308 | rsi14=43.27 | macd_hist=-0.0011 | score=nan | buy_days=0 | sell_days=588
+INFO:__main__:300763.SZ | close=92.3300 | bias20=10.6676 | rsi14=67.07 | macd_hist=2.0826 | score=nan | buy_days=0 | sell_days=629
+INFO:__main__:600089.SH | close=31.8600 | bias20=7.4192 | rsi14=67.69 | macd_hist=0.3380 | score=nan | buy_days=0 | sell_days=234
+INFO:__main__:002129.SZ | close=10.1500 | bias20=-1.7282 | rsi14=22.18 | macd_hist=-0.2416 | score=nan | buy_days=0 | sell_days=510
+INFO:__main__:002531.SZ | close=10.8700 | bias20=12.8296 | rsi14=72.06 | macd_hist=0.1076 | score=nan | buy_days=0 | sell_days=654
+INFO:__main__:300068.SZ | close=15.8500 | bias20=3.4899 | rsi14=56.82 | macd_hist=0.1104 | score=nan | buy_days=0 | sell_days=796
+INFO:__main__:002074.SZ | close=38.0600 | bias20=2.1690 | rsi14=55.71 | macd_hist=0.1165 | score=nan | buy_days=0 | sell_days=671
+INFO:__main__:300750.SZ | close=376.3000 | bias20=5.2055 | rsi14=53.84 | macd_hist=2.2831 | score=nan | buy_days=0 | sell_days=362
+INFO:__main__:002466.SZ | close=53.8500 | bias20=2.6047 | rsi14=61.92 | macd_hist=0.2960 | score=nan | buy_days=0 | sell_days=541
+INFO:__main__:002460.SZ | close=69.0200 | bias20=1.9468 | rsi14=59.62 | macd_hist=-0.4133 | score=nan | buy_days=0 | sell_days=417
+INFO:__main__:300014.SZ | close=62.9800 | bias20=0.1766 | rsi14=45.68 | macd_hist=0.0294 | score=nan | buy_days=0 | sell_days=631
+INFO:__main__:603659.SH | close=28.4600 | bias20=0.9542 | rsi14=48.71 | macd_hist=-0.2617 | score=nan | buy_days=0 | sell_days=494
+INFO:__main__:688819.SH | close=31.2600 | bias20=-6.2472 | rsi14=15.81 | macd_hist=-0.7089 | score=nan | buy_days=0 | sell_days=259
+INFO:__main__:002850.SZ | close=158.0300 | bias20=-5.3344 | rsi14=12.84 | macd_hist=-4.2424 | score=nan | buy_days=0 | sell_days=615
+INFO:__main__:300037.SZ | close=55.4600 | bias20=2.7884 | rsi14=65.77 | macd_hist=-0.0833 | score=nan | buy_days=0 | sell_days=379
+INFO:__main__:002709.SZ | close=45.1500 | bias20=8.1217 | rsi14=65.62 | macd_hist=0.4399 | score=nan | buy_days=0 | sell_days=552
+INFO:__main__:300450.SZ | close=50.8700 | bias20=-7.0918 | rsi14=19.95 | macd_hist=-1.3748 | score=nan | buy_days=0 | sell_days=624
+INFO:__main__:300207.SZ | close=25.4600 | bias20=1.9093 | rsi14=52.98 | macd_hist=0.1281 | score=nan | buy_days=0 | sell_days=616
+INFO:__main__:300724.SZ | close=119.5000 | bias20=-5.0136 | rsi14=26.77 | macd_hist=-4.2173 | score=nan | buy_days=0 | sell_days=619
+INFO:__main__:688196.SH | close=82.4200 | bias20=2.8643 | rsi14=56.74 | macd_hist=0.3977 | score=nan | buy_days=0 | sell_days=426
+INFO:__main__:688556.SH | close=16.9500 | bias20=9.6023 | rsi14=62.26 | macd_hist=0.0115 | score=nan | buy_days=0 | sell_days=173
+INFO:__main__:300118.SZ | close=20.1500 | bias20=-2.4142 | rsi14=34.40 | macd_hist=-0.6740 | score=nan | buy_days=0 | sell_days=766
+INFO:__main__:002610.SZ | close=0.3700 | bias20=-39.9838 | rsi14=0.00 | macd_hist=0.0223 | score=nan | buy_days=0 | sell_days=495
+INFO:__main__:300393.SZ | close=11.7700 | bias20=15.1494 | rsi14=60.27 | macd_hist=0.3213 | score=nan | buy_days=0 | sell_days=481
+INFO:__main__:600732.SH | close=15.1700 | bias20=4.7543 | rsi14=51.79 | macd_hist=0.1271 | score=nan | buy_days=0 | sell_days=584
+INFO:__main__:688408.SH | close=43.0400 | bias20=-6.2871 | rsi14=21.01 | macd_hist=-1.2258 | score=nan | buy_days=0 | sell_days=291
+INFO:__main__:
 [4/6] 参数优化（Walk-Forward优化）...
 INFO:__main__:注意：参数优化需要较长时间，请耐心等待...
 INFO:optimizer:================================================================================
@@ -424,244 +548,12 @@ INFO:optimizer:种群大小: 100
 INFO:optimizer:进化代数: 100
 INFO:optimizer:目标交易次数: >= 20
 INFO:optimizer:================================================================================
-INFO:optimizer:Gen   0: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -6.52, 'theta_sell': 14.34, 'alpha_vol': 0.74, 'rsi_thresh': 34, 'score_threshold': 0.66}
-INFO:optimizer:Gen  10: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -6.73, 'theta_sell': 20.0, 'alpha_vol': 0.5, 'rsi_thresh': 34, 'score_threshold': 0.65}
-INFO:optimizer:          参数变化: theta_buy:-6.52->-6.73, theta_sell:14.34->20.0, alpha_vol:0.74->0.5, score_threshold:0.66->0.65
-INFO:optimizer:Gen  20: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -5.43, 'theta_sell': 15.47, 'alpha_vol': 0.5, 'rsi_thresh': 37, 'score_threshold': 0.6}
-INFO:optimizer:          参数变化: theta_buy:-6.73->-5.43, theta_sell:20.0->15.47, rsi_thresh:34->37, score_threshold:0.65->0.6
-INFO:optimizer:Gen  30: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -5.51, 'theta_sell': 14.98, 'alpha_vol': 0.5, 'rsi_thresh': 36, 'score_threshold': 0.6}
-INFO:optimizer:          参数变化: theta_buy:-5.43->-5.51, theta_sell:15.47->14.98, rsi_thresh:37->36
-INFO:optimizer:Gen  40: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -6.46, 'theta_sell': 14.98, 'alpha_vol': 0.5, 'rsi_thresh': 28, 'score_threshold': 0.7}
-INFO:optimizer:          参数变化: theta_buy:-5.51->-6.46, rsi_thresh:36->28, score_threshold:0.6->0.7
-INFO:optimizer:Gen  50: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -6.36, 'theta_sell': 14.98, 'alpha_vol': 0.68, 'rsi_thresh': 30, 'score_threshold': 0.7}
-INFO:optimizer:          参数变化: theta_buy:-6.46->-6.36, alpha_vol:0.5->0.68, rsi_thresh:28->30
-INFO:optimizer:Gen  60: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -5.64, 'theta_sell': 14.49, 'alpha_vol': 0.68, 'rsi_thresh': 38, 'score_threshold': 0.7}
-INFO:optimizer:          参数变化: theta_buy:-6.36->-5.64, theta_sell:14.98->14.49, rsi_thresh:30->38
-INFO:optimizer:Gen  70: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -7.84, 'theta_sell': 18.88, 'alpha_vol': 0.5, 'rsi_thresh': 38, 'score_threshold': 0.6}
-INFO:optimizer:          参数变化: theta_buy:-5.64->-7.84, theta_sell:14.49->18.88, alpha_vol:0.68->0.5, score_threshold:0.7->0.6
-INFO:optimizer:Gen  80: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -5.65, 'theta_sell': 14.87, 'alpha_vol': 0.5, 'rsi_thresh': 38, 'score_threshold': 0.61}
-INFO:optimizer:          参数变化: theta_buy:-7.84->-5.65, theta_sell:18.88->14.87, score_threshold:0.6->0.61
-INFO:optimizer:Gen  90: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -6.67, 'theta_sell': 14.29, 'alpha_vol': 0.8, 'rsi_thresh': 29, 'score_threshold': 0.6}
-INFO:optimizer:          参数变化: theta_buy:-5.65->-6.67, theta_sell:14.87->14.29, alpha_vol:0.5->0.8, rsi_thresh:38->29, score_threshold:0.61->0.6
-INFO:optimizer:Gen  99: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -6.67, 'theta_sell': 15.24, 'alpha_vol': 0.5, 'rsi_thresh': 31, 'score_threshold': 0.7}
-INFO:optimizer:          参数变化: theta_sell:14.29->15.24, alpha_vol:0.8->0.5, rsi_thresh:29->31, score_threshold:0.6->0.7
-INFO:optimizer:================================================================================
-INFO:optimizer:✅ 最优参数: {'theta_buy': -6.67, 'theta_sell': 15.24, 'alpha_vol': 0.5, 'rsi_thresh': 31, 'score_threshold': 0.7, 'risk_per_trade': 0.02, 'max_position': 0.8, 'min_amount': 30000000}
-INFO:optimizer:   最优适应度: -4.0000
-INFO:optimizer:================================================================================
-INFO:__main__:参数优化完成，本次运行参数变化如下：
-INFO:__main__:  alpha_vol: 0.65 -> 0.5
-INFO:__main__:  max_position: 0.8 (unchanged)
-INFO:__main__:  min_amount: 30000000 (unchanged)
-INFO:__main__:  risk_per_trade: 0.02 (unchanged)
-INFO:__main__:  rsi_thresh: 35 -> 31
-INFO:__main__:  score_threshold: 0.65 -> 0.7
-INFO:__main__:  theta_buy: -6.0 -> -6.67
-INFO:__main__:  theta_sell: 15.0 -> 15.24
-INFO:__main__:
-[5/6] 加载OOS测试集数据并运行回测...
-INFO:__main__:OOS测试周期: 20250101 - 20260310
-INFO:data_loader:[1/29] 加载 002837.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[2/29] 加载 301018.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[3/29] 加载 301326.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[4/29] 加载 300731.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[5/29] 加载 002536.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[6/29] 加载 300602.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[7/29] 加载 300308.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[8/29] 加载 300502.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[9/29] 加载 002384.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[10/29] 加载 301217.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[11/29] 加载 001267.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[12/29] 加载 300394.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[13/29] 加载 688629.SH...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[14/29] 加载 002843.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[15/29] 加载 002897.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[16/29] 加载 600589.SH...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[17/29] 加载 300442.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[18/29] 加载 300846.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[19/29] 加载 688702.SH...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[20/29] 加载 603881.SH...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[21/29] 加载 000880.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[22/29] 加载 688047.SH...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[23/29] 加载 688110.SH...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[24/29] 加载 688343.SH...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[25/29] 加载 002009.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[26/29] 加载 603331.SH...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[27/29] 加载 603667.SH...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[28/29] 加载 000700.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:[29/29] 加载 300718.SZ...
-/home/joe/quant/quantv3/data_loader.py:98: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
-  df = pd.read_sql(query, conn, params=(ts_code, start_date, end_date))
-INFO:data_loader:✅ 成功加载 29/29 只股票
-INFO:__main__:成功加载 29 只股票数据
-INFO:backtest_engine:================================================================================
-INFO:backtest_engine:回测引擎 v3.1 (移除政策和北向资金筛选)
-INFO:backtest_engine:================================================================================
-INFO:backtest_engine:股票数量: 29
-INFO:backtest_engine:初始资金: 1,000,000
-INFO:backtest_engine:成本模型: 佣金0.00025 + 印花税0.001(卖) + 滑点0.002
-INFO:backtest_engine:执行模式: T+1（信号延迟1天执行）
-INFO:backtest_engine:================================================================================
-INFO:backtest_engine:
-回测结果:
-INFO:backtest_engine:  初始资金: 1,000,000
-INFO:backtest_engine:  最终权益: 1,000,000
-INFO:backtest_engine:  总收益率: 0.00%
-INFO:backtest_engine:  年化收益率: 0.00%
-INFO:backtest_engine:  最大回撤: 0.00%
-INFO:backtest_engine:  夏普比率: 0.00
-INFO:backtest_engine:  换手率: 0.00/月
-INFO:backtest_engine:  胜率: 0.00%
-INFO:backtest_engine:  买入次数: 0
-INFO:backtest_engine:  卖出次数: 0
-INFO:backtest_engine:  盈利次数: 0
-INFO:backtest_engine:  平均盈亏: 0.00
-INFO:backtest_engine:  平均盈利: 0.00
-INFO:backtest_engine:  平均亏损: 0.00
-INFO:backtest_engine:  总交易成本: 0.00
-INFO:backtest_engine:================================================================================
-INFO:__main__:
-[6/6] 生成回测报告...
-INFO:report_generator:================================================================================
-INFO:report_generator:生成回测报告 v3.2
-INFO:report_generator:================================================================================
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 26085 (\N{CJK UNIFIED IDEOGRAPH-65E5}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 26399 (\N{CJK UNIFIED IDEOGRAPH-671F}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 26435 (\N{CJK UNIFIED IDEOGRAPH-6743}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 30410 (\N{CJK UNIFIED IDEOGRAPH-76CA}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 65288 (\N{FULLWIDTH LEFT PARENTHESIS}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 20803 (\N{CJK UNIFIED IDEOGRAPH-5143}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 65289 (\N{FULLWIDTH RIGHT PARENTHESIS}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 22238 (\N{CJK UNIFIED IDEOGRAPH-56DE}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 27979 (\N{CJK UNIFIED IDEOGRAPH-6D4B}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 20928 (\N{CJK UNIFIED IDEOGRAPH-51C0}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 20540 (\N{CJK UNIFIED IDEOGRAPH-503C}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 26354 (\N{CJK UNIFIED IDEOGRAPH-66F2}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 32447 (\N{CJK UNIFIED IDEOGRAPH-7EBF}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 21021 (\N{CJK UNIFIED IDEOGRAPH-521D}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 22987 (\N{CJK UNIFIED IDEOGRAPH-59CB}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 36164 (\N{CJK UNIFIED IDEOGRAPH-8D44}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:81: UserWarning: Glyph 37329 (\N{CJK UNIFIED IDEOGRAPH-91D1}) missing from font(s) DejaVu Sans.
-  plt.tight_layout()
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 26435 (\N{CJK UNIFIED IDEOGRAPH-6743}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 30410 (\N{CJK UNIFIED IDEOGRAPH-76CA}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 65288 (\N{FULLWIDTH LEFT PARENTHESIS}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 20803 (\N{CJK UNIFIED IDEOGRAPH-5143}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 65289 (\N{FULLWIDTH RIGHT PARENTHESIS}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 22238 (\N{CJK UNIFIED IDEOGRAPH-56DE}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 27979 (\N{CJK UNIFIED IDEOGRAPH-6D4B}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 20928 (\N{CJK UNIFIED IDEOGRAPH-51C0}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 20540 (\N{CJK UNIFIED IDEOGRAPH-503C}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 26354 (\N{CJK UNIFIED IDEOGRAPH-66F2}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 32447 (\N{CJK UNIFIED IDEOGRAPH-7EBF}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 26085 (\N{CJK UNIFIED IDEOGRAPH-65E5}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 26399 (\N{CJK UNIFIED IDEOGRAPH-671F}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 21021 (\N{CJK UNIFIED IDEOGRAPH-521D}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 22987 (\N{CJK UNIFIED IDEOGRAPH-59CB}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 36164 (\N{CJK UNIFIED IDEOGRAPH-8D44}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-/home/joe/quant/quantv3/report_generator.py:83: UserWarning: Glyph 37329 (\N{CJK UNIFIED IDEOGRAPH-91D1}) missing from font(s) DejaVu Sans.
-  plt.savefig(output_path, dpi=REPORT_CONFIG['figure_dpi'], bbox_inches='tight')
-INFO:report_generator:✓ 净值曲线图: ./result_v3.2/equity_curve_v3.2.png
-INFO:report_generator:✓ 回测报告: ./result_v3.2/backtest_report_v3.2.md
-INFO:report_generator:================================================================================
-INFO:report_generator:✅ 报告生成完成
-INFO:report_generator:================================================================================
-INFO:__main__:
-================================================================================
-INFO:__main__:✅ 全部完成！
-INFO:__main__:================================================================================
-INFO:__main__:
-回测报告已生成，请查看 ./result_v3.2/ 目录
-INFO:__main__:- 回测报告: ./result_v3.2/backtest_report_v3.2.md
-INFO:__main__:- 净值曲线: ./result_v3.2/equity_curve_v3.2.png
-INFO:__main__:
-OOS测试模式: primary
-INFO:__main__:测试周期: 20250101 - 20260310
+INFO:optimizer:Gen   0: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -7.2, 'theta_sell': 18.82, 'alpha_vol': 0.63, 'rsi_thresh': 39, 'score_threshold': 0.69}
+INFO:optimizer:Gen  10: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -5.9, 'theta_sell': 15.17, 'alpha_vol': 0.75, 'rsi_thresh': 34, 'score_threshold': 0.67}
+INFO:optimizer:          参数变化: theta_buy:-7.2->-5.9, theta_sell:18.82->15.17, alpha_vol:0.63->0.75, rsi_thresh:39->34, score_threshold:0.69->0.67
+INFO:optimizer:Gen  20: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -4.12, 'theta_sell': 20.56, 'alpha_vol': 0.5, 'rsi_thresh': 34, 'score_threshold': 0.7}
+INFO:optimizer:          参数变化: theta_buy:-5.9->-4.12, theta_sell:15.17->20.56, alpha_vol:0.75->0.5, score_threshold:0.67->0.7
+INFO:optimizer:Gen  30: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -5.27, 'theta_sell': 19.59, 'alpha_vol': 0.8, 'rsi_thresh': 34, 'score_threshold': 0.67}
+INFO:optimizer:          参数变化: theta_buy:-4.12->-5.27, theta_sell:20.56->19.59, alpha_vol:0.5->0.8, score_threshold:0.7->0.67
+INFO:optimizer:Gen  40: Best= -4.0000, Avg= -4.0000, Trades(best/avg)=0.0/0.0, Ann(best/avg)=0.0000/0.0000, MinDD=-0.0100, Params={'theta_buy': -4.96, 'theta_sell': 17.26, 'alpha_vol': 0.74, 'rsi_thresh': 31, 'score_threshold': 0.7}
+INFO:optimizer:          参数变化: theta_buy:-5.27->-4.96, theta_sell:19.59->17.26, alpha_vol:0.8->0.74, rsi_thresh:34->31, score_threshold:0.67->0.7
