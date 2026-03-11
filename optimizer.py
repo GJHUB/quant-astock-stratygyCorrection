@@ -31,7 +31,8 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
     Returns:
     --------
     dict
-        {'annual_return': float, 'max_drawdown': float, 'turnover': float, 'num_trades': int}
+        {'annual_return': float, 'max_drawdown': float, 'turnover': float, 'num_trades': int, 
+         'avg_score': float, 'score_std': float}
     """
     from signal_generator import generate_signals
 
@@ -39,10 +40,17 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
     winning_trades = 0
     total_return = 0.0
     max_dd = 0.0
+    all_scores = []  # v3.3: 收集所有股票的 score 用于统计
 
     for ts_code, df in data_dict.items():
         try:
             df_signals = generate_signals(df.copy(), params)
+
+            # v3.3: 收集 signal_score（每只股票的最后一个有效分值）
+            if 'signal_score' in df_signals.columns:
+                valid_scores = df_signals['signal_score'].dropna()
+                if len(valid_scores) > 0:
+                    all_scores.append(float(valid_scores.iloc[-1]))
 
             # 简单计算收益
             buy_signals = df_signals[df_signals['signal'] == 1]
@@ -65,18 +73,26 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
 
     # v3.1+: 防止分母为0，改进计算逻辑
     if total_trades == 0 or len(data_dict) == 0:
-        return {'annual_return': 0.0, 'max_drawdown': -0.01, 'turnover': 0.0, 'num_trades': 0}
+        return {'annual_return': 0.0, 'max_drawdown': -0.01, 'turnover': 0.0, 'num_trades': 0,
+                'avg_score': 0.0, 'score_std': 0.0}
 
     avg_return = total_return / total_trades if total_trades > 0 else 0.0
     annual_return = avg_return * 252  # 年化
     max_drawdown = -0.1 if total_trades > 0 else -0.01  # 简化（负值）
     turnover = total_trades / len(data_dict) / 12  # 月均换手
 
+    # v3.3: 计算 score 统计
+    import numpy as np
+    avg_score = float(np.mean(all_scores)) if all_scores else 0.0
+    score_std = float(np.std(all_scores)) if all_scores else 0.0
+
     return {
         'annual_return': annual_return,
         'max_drawdown': max_drawdown,
         'turnover': turnover,
-        'num_trades': total_trades
+        'num_trades': total_trades,
+        'avg_score': avg_score,
+        'score_std': score_std
     }
 
 
@@ -91,7 +107,7 @@ def evaluate(individual: List, train_data: dict) -> tuple:
     Returns
     -------
     tuple
-        (fitness_score, num_trades, annual_return, max_drawdown)
+        (fitness_score, num_trades, annual_return, max_drawdown, avg_score, score_std)
     """
     # v3.3: 10维参数解析（4个权重 + 6个原有参数）
     params = {
@@ -119,6 +135,8 @@ def evaluate(individual: List, train_data: dict) -> tuple:
         max_dd = results['max_drawdown']
         turnover = results['turnover']
         num_trades = results['num_trades']
+        avg_score = results.get('avg_score', 0.0)  # v3.3: 新增 score 统计
+        score_std = results.get('score_std', 0.0)
 
         # Calmar Ratio（防止分母为0）
         if abs(max_dd) < 0.001:  # 避免分母接近0
@@ -155,11 +173,11 @@ def evaluate(individual: List, train_data: dict) -> tuple:
         if abs(fitness) < 0.001:
             fitness = np.random.uniform(-0.1, 0.1)
 
-        return (fitness, float(num_trades), float(annual_ret), float(max_dd))
+        return (fitness, float(num_trades), float(annual_ret), float(max_dd), float(avg_score), float(score_std))
 
     except Exception as e:
         logger.error(f"评估失败: {e}")
-        return (-999.0, 0.0, 0.0, -1.0)
+        return (-999.0, 0.0, 0.0, -1.0, 0.0, 0.0)
 
 
 def optimize_parameters_wfo(train_data: dict, val_data: dict = None, n_windows: int = 3) -> Dict:
@@ -306,6 +324,8 @@ def optimize_parameters(train_data: dict) -> Dict:
         trade_counts = [ind.fitness.values[1] for ind in pop]
         annual_rets = [ind.fitness.values[2] for ind in pop]
         drawdowns = [ind.fitness.values[3] for ind in pop]
+        avg_scores = [ind.fitness.values[4] for ind in pop]  # v3.3: score 统计
+        score_stds = [ind.fitness.values[5] for ind in pop]
 
         best_fit = max(fits)
         avg_fit = sum(fits) / len(fits)
@@ -314,6 +334,8 @@ def optimize_parameters(train_data: dict) -> Dict:
         best_ann = max(annual_rets) if annual_rets else 0.0
         avg_ann = sum(annual_rets) / len(annual_rets) if annual_rets else 0.0
         min_dd = min(drawdowns) if drawdowns else 0.0
+        best_score = max(avg_scores) if avg_scores else 0.0  # v3.3: 最佳 score
+        avg_score = sum(avg_scores) / len(avg_scores) if avg_scores else 0.0
 
         gen_cost_sec = time.time() - gen_start_ts
         total_cost_sec = time.time() - optimize_start_ts
@@ -336,6 +358,7 @@ def optimize_parameters(train_data: dict) -> Dict:
                 f"Gen {gen:3d}: Best={best_fit:8.4f}, Avg={avg_fit:8.4f}, "
                 f"Trades(best/avg)={best_trades:.1f}/{avg_trades:.1f}, "
                 f"Ann(best/avg)={best_ann:.4f}/{avg_ann:.4f}, MinDD={min_dd:.4f}, "
+                f"Score(best/avg)={best_score:.4f}/{avg_score:.4f}, "
                 f"GenTime={gen_cost_sec:.2f}s, Total={total_cost_sec:.2f}s, Params={best_params_gen}"
             )
             if prev_best_params is not None:
