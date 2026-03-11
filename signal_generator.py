@@ -15,18 +15,41 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
+def get_policy_score(dates: pd.Series) -> pd.Series:
+    """
+    获取政策评分（预留接口，v3.2）
+
+    未来可接入BERT NLP分析政策文本，当前返回默认值
+    支持安全降级：无数据时返回0
+
+    Parameters:
+    -----------
+    dates : pd.Series
+        日期序列
+
+    Returns:
+    --------
+    pd.Series
+        政策评分（0-1范围）
+    """
+    # 当前实现：返回0（无政策加成）
+    # 未来扩展：接入政策NLP分析、北向资金等
+    return pd.Series(0.0, index=dates.index if hasattr(dates, 'index') else range(len(dates)))
+
+
 def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     """
-    生成买卖信号（v3.1+ - 加权评分系统，修复买点稀疏问题）
+    生成买卖信号（v3.2 - 加权评分系统，提升交易次数）
 
-    买入逻辑：加权评分（0-1）+ 阈值触发
+    买入逻辑：加权评分（0-1）+ 阈值触发（v3.2公式）
     - 趋势权重: 0.25 (SMA60向上)
-    - BIAS权重: 0.25 (负乖离率超跌)
+    - BIAS权重: 0.25 (负乖离率超跌，分母放宽至8)
     - 缩量权重: 0.15 (成交量萎缩)
-    - RSI权重: 0.15 (超卖)
+    - RSI权重: 0.15 (超卖，分母放宽至15)
     - MACD权重: 0.10 (HIST转正)
     - 阳线权重: 0.10 (收盘>开盘)
-    - 触发阈值: score > 0.70 (可配置)
+    - 政策权重: 0.20 (预留接口，当前降级为0)
+    - 触发阈值: score > 0.65 (可配置0.60-0.70)
 
     卖出条件：
     1. BIAS20 > 15%（正乖离率过大）
@@ -50,39 +73,51 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
 
     df = df.copy()
 
-    # 加权评分系统（0-1范围）- 调整权重分配以增加信号
+    # 加权评分系统（0-1范围）- v3.2权重分配
     score = pd.Series(0.0, index=df.index)
 
-    # 1. 趋势权重 0.20（降低）
+    # 1. 趋势权重 0.25
     trend_up = (df['sma60'] > df['sma60'].shift(1)).astype(float)
-    score += 0.20 * trend_up
+    score += 0.25 * trend_up
 
-    # 2. BIAS权重 0.30（提高，核心指标）- 负乖离率越大，分数越高
-    # 调整计算方式：当BIAS < -theta_buy时给满分，否则线性衰减
-    bias_score = np.clip((params['theta_buy'] - df['bias20']) / 15.0, 0, 1)
-    score += 0.30 * bias_score
+    # 2. BIAS权重 0.25 - 负乖离率越大，分数越高（分母放宽至8）
+    # theta_buy为负值（如-6），当BIAS < theta_buy时给高分
+    bias_score = np.clip((params['theta_buy'] - df['bias20']) / 8.0, 0, 1)
+    score += 0.25 * bias_score
 
     # 3. 缩量权重 0.15
     vol_shrink = (df['vol'] < params['alpha_vol'] * df['vol_sma10']).astype(float)
     score += 0.15 * vol_shrink
 
-    # 4. RSI权重 0.20（提高）- RSI越低，分数越高
-    rsi_score = np.clip((params['rsi_thresh'] - df['rsi14']) / 30.0, 0, 1)
-    score += 0.20 * rsi_score
+    # 4. RSI权重 0.15 - RSI越低，分数越高（分母放宽至15）
+    rsi_score = np.clip((params['rsi_thresh'] - df['rsi14']) / 15.0, 0, 1)
+    score += 0.15 * rsi_score
 
     # 5. MACD权重 0.10
     macd_turn = (df['macd_hist'] > 0).astype(float)
     score += 0.10 * macd_turn
 
-    # 6. 阳线权重 0.05（降低）
+    # 6. 阳线权重 0.10
     is_yang = (df['close'] > df['open']).astype(float)
-    score += 0.05 * is_yang
+    score += 0.10 * is_yang
 
-    # 流动性过滤（非停牌）
-    liquidity_ok = (df['vol'] > 0)
+    # 7. 政策权重 0.20（预留接口，支持安全降级）
+    try:
+        policy_score = get_policy_score(df.index)
+        score += 0.20 * np.clip(policy_score, 0, 1)
+    except Exception as e:
+        logger.warning(f"政策评分计算失败，降级为0: {e}")
+        # 安全降级：无政策数据时不影响其他评分
+
+    # 流动性过滤（v3.2放宽至3000万成交额）
+    min_amount = params.get('min_amount', 30000000)
+    if 'amount' in df.columns:
+        liquidity_ok = (df['vol'] > 0) & (df['amount'] > min_amount)
+    else:
+        liquidity_ok = (df['vol'] > 0)
 
     # 买入信号：score > 阈值 & 流动性OK
-    score_threshold = params.get('score_threshold', 0.70)
+    score_threshold = params.get('score_threshold', 0.65)
     buy_cond = (score > score_threshold) & liquidity_ok
 
     # 卖出条件（保持不变）
