@@ -42,20 +42,24 @@ def get_policy_score(dates) -> pd.Series:
 
 def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     """
-    生成买卖信号（v3.2 - 加权评分系统，提升交易次数）
+    生成买卖信号（v3.3 - 4权重可调+归一化+A股微观结构修正）
 
-    买入逻辑：加权评分（0-1）+ 阈值触发（v3.2公式）
-    - 趋势权重: 0.25 (SMA60向上)
-    - BIAS权重: 0.25 (负乖离率超跌，分母放宽至8)
-    - 缩量权重: 0.15 (成交量萎缩)
-    - RSI权重: 0.15 (超卖，分母放宽至15)
-    - 政策权重: 0.20 (预留接口，当前降级为0)
-    - 触发阈值: score > 0.65 (可配置0.60-0.70)
+    v3.3改进点：
+    1. 权重可调：w_trend, w_bias, w_vol, w_rsi（总和强制归一化为1.0）
+    2. A股微观结构修正：跌停过滤（-9.5%）、停牌处理（成交量=0）
+    3. 真实交易成本：印花税0.1%、佣金万2.5、滑点0.03%
+    4. 移除政策权重（v3.2的0.20权重分配到其他4个因子）
+
+    买入逻辑：加权评分（0-1）+ 阈值触发
+    - 趋势权重: w_trend (SMA60向上，长线Beta过滤)
+    - BIAS权重: w_bias (负乖离率超跌，短线Alpha核心)
+    - 缩量权重: w_vol (成交量萎缩，A股特有筹码锁定)
+    - RSI权重: w_rsi (超卖，动量互补)
+    - 触发阈值: score > score_threshold (可配置0.40-0.60)
 
     卖出条件：
-    1. BIAS20 > 15%（正乖离率过大）
-    2. Close < SMA60 * 0.92（跌破均线8%）
-    3. RSI14 > 70（超买）
+    1. BIAS20 > theta_sell（正乖离率过大，对称卖出）
+    2. score < score_threshold * 0.6（评分回落）
 
     Parameters:
     -----------
@@ -74,50 +78,63 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
 
     df = df.copy()
 
-    # 加权评分系统（0-1范围）- v3.2权重分配
+    # v3.3: 权重归一化（强制总和=1.0）
+    w = {
+        'trend': params.get('w_trend', 0.25),
+        'bias':  params.get('w_bias',  0.30),
+        'vol':   params.get('w_vol',   0.25),
+        'rsi':   params.get('w_rsi',   0.20)
+    }
+    total_w = sum(w.values())
+    if total_w > 0:
+        w = {k: v / total_w for k, v in w.items()}  # 归一化
+    else:
+        # 防御性编程：如果权重全为0，使用默认均分
+        w = {'trend': 0.25, 'bias': 0.25, 'vol': 0.25, 'rsi': 0.25}
+
+    # 加权评分系统（0-1范围）- v3.3可调权重
     score = pd.Series(0.0, index=df.index)
 
-    # 1. 趋势权重 0.25
+    # 1. 趋势权重（长线Beta过滤）
     trend_up = (df['sma60'] > df['sma60'].shift(1)).astype(float)
-    score += 0.25 * trend_up
+    score += w['trend'] * trend_up
 
-    # 2. BIAS权重 0.25 - 负乖离率越大，分数越高（分母放宽至8）
+    # 2. BIAS权重（短线Alpha核心）- 负乖离率越大，分数越高
     # theta_buy为负值（如-6），当BIAS < theta_buy时给高分
     bias_score = np.clip((params['theta_buy'] - df['bias20']) / 8.0, 0, 1)
-    score += 0.25 * bias_score
+    score += w['bias'] * bias_score
 
-    # 3. 缩量权重 0.15
+    # 3. 缩量权重（A股特有筹码锁定）
     vol_shrink = (df['vol'] < params['alpha_vol'] * df['vol_sma10']).astype(float)
-    score += 0.15 * vol_shrink
+    score += w['vol'] * vol_shrink
 
-    # 4. RSI权重 0.15 - RSI越低，分数越高（分母放宽至15）
+    # 4. RSI权重（动量互补）- RSI越低，分数越高
     rsi_score = np.clip((params['rsi_thresh'] - df['rsi14']) / 15.0, 0, 1)
-    score += 0.15 * rsi_score
+    score += w['rsi'] * rsi_score
 
-    # 5. 政策权重 0.20（预留接口，支持安全降级）
-    try:
-        policy_score = get_policy_score(df.index)
-        score += 0.20 * np.clip(policy_score, 0, 1)
-    except Exception as e:
-        logger.warning(f"政策评分计算失败，降级为0: {e}")
-        # 安全降级：无政策数据时不影响其他评分
+    # v3.3: A股微观结构修正
+    # 1. 跌停过滤（日内跌幅 > -9.5%，避免跌停板无法买入）
+    pct_change = df['close'].pct_change()
+    not_limit_down = pct_change > -0.095
+
+    # 2. 停牌处理（成交量 > 0，避免停牌期间误触发）
+    not_suspended = df['vol'] > 0
 
     # 流动性过滤（v3.2放宽至3000万成交额）
     min_amount = params.get('min_amount', 30000000)
     if 'amount' in df.columns:
-        liquidity_ok = (df['vol'] > 0) & (df['amount'] > min_amount)
+        liquidity_ok = (df['amount'] > min_amount)
     else:
-        liquidity_ok = (df['vol'] > 0)
+        liquidity_ok = pd.Series(True, index=df.index)
 
-    # 买入信号：score > 阈值 & 流动性OK
-    score_threshold = params.get('score_threshold', 0.65)
-    buy_cond = (score > score_threshold) & liquidity_ok
+    # 买入信号：score > 阈值 & 流动性OK & 非跌停 & 非停牌
+    score_threshold = params.get('score_threshold', 0.50)
+    buy_cond = (score > score_threshold) & liquidity_ok & not_limit_down & not_suspended
 
-    # 卖出条件（保持不变）
+    # v3.3: 卖出条件（简化为对称BIAS + score回落）
     sell_cond = (
-        (df['bias20'] > params['theta_sell']) |  # 正乖离率过大（15%）
-        (df['close'] < df['sma60'] * 0.92) |  # 跌破均线8%
-        (df['rsi14'] > 70)  # RSI超买
+        (df['bias20'] > params['theta_sell']) |  # 正乖离率过大（对称卖出）
+        (score < score_threshold * 0.6)  # 评分回落35%
     )
 
     # 生成信号
@@ -128,6 +145,11 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
 
     # T+1 shift（信号延迟1天执行）
     df['signal'] = df['signal'].shift(1).fillna(0)
+
+    # v3.3: 真实交易成本计算（印花税0.1% + 佣金万2.5 + 滑点0.03%）
+    df['transaction_cost'] = 0.0
+    df.loc[df['signal'] == 1, 'transaction_cost'] = 0.00025 + 0.0003  # 买入：佣金+滑点
+    df.loc[df['signal'] == -1, 'transaction_cost'] = 0.001 + 0.00025 + 0.0003  # 卖出：印花税+佣金+滑点
 
     # 计算目标仓位（基于ATR）
     df['target_shares'] = 0

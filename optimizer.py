@@ -82,22 +82,34 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
 
 def evaluate(individual: List, train_data: dict) -> tuple:
     """
-    评估函数：Calmar Ratio - 交易次数惩罚 - 换手惩罚（v3.2.1）
+    评估函数：Calmar Ratio - 交易次数惩罚 - 换手惩罚（v3.3 - 10维优化）
+
+    v3.3改进：扩展为10维联合优化（4个权重 + 6个原有参数）
+    - individual[0:4]: w_trend, w_bias, w_vol, w_rsi（权重，自动归一化）
+    - individual[4:10]: theta_buy, theta_sell, alpha_vol, rsi_thresh, score_threshold
 
     Returns
     -------
     tuple
         (fitness_score, num_trades, annual_return, max_drawdown)
     """
+    # v3.3: 10维参数解析（4个权重 + 6个原有参数）
     params = {
-        'theta_buy': individual[0],  # v3.2: 负值（-8 ~ -5）
-        'theta_sell': individual[1],
-        'alpha_vol': max(0.5, min(0.8, individual[2])),  # 强制约束
-        'rsi_thresh': int(individual[3]),
-        'score_threshold': max(0.60, min(0.70, individual[4])),  # v3.2: 新增参数
+        # 权重参数（前4维，会在signal_generator中自动归一化）
+        'w_trend': individual[0],
+        'w_bias': individual[1],
+        'w_vol': individual[2],
+        'w_rsi': individual[3],
+
+        # 原有参数（后6维）
+        'theta_buy': individual[4],  # v3.3: 负值（-10 ~ -6）
+        'theta_sell': individual[5],
+        'alpha_vol': max(0.70, min(0.90, individual[6])),  # v3.3: 调整范围0.70~0.90
+        'rsi_thresh': int(individual[7]),
+        'score_threshold': max(0.40, min(0.60, individual[8])),  # v3.3: 调整范围0.40~0.60
         'risk_per_trade': 0.02,
         'max_position': 0.8,
-        'min_amount': 30000000  # v3.2: 放宽流动性过滤
+        'min_amount': 30000000
     }
 
     try:
@@ -125,16 +137,16 @@ def evaluate(individual: List, train_data: dict) -> tuple:
         # v3.2: 换手率惩罚（年化>200%即月均>16.7%）
         turnover_penalty = max(0, turnover - 0.167) * 10
 
-        # alpha_vol极值惩罚（限制在0.5~0.8）
-        alpha_vol = individual[2]
-        if alpha_vol < 0.5 or alpha_vol > 0.8:
+        # v3.3: alpha_vol极值惩罚（限制在0.70~0.90）
+        alpha_vol = individual[6]
+        if alpha_vol < 0.70 or alpha_vol > 0.90:
             param_penalty = 5.0
         else:
             param_penalty = 0.0
 
-        # v3.2: score_threshold极值惩罚（限制在0.60~0.70）
-        score_threshold = individual[4]
-        if score_threshold < 0.60 or score_threshold > 0.70:
+        # v3.3: score_threshold极值惩罚（限制在0.40~0.60）
+        score_threshold = individual[8]
+        if score_threshold < 0.40 or score_threshold > 0.60:
             param_penalty += 5.0
 
         fitness = calmar - trade_penalty - turnover_penalty - param_penalty
@@ -179,7 +191,11 @@ def optimize_parameters_wfo(train_data: dict, val_data: dict = None, n_windows: 
 
 def optimize_parameters(train_data: dict) -> Dict:
     """
-    遗传算法优化参数（v3.2 - 扩展搜索空间和强度）
+    遗传算法优化参数（v3.3 - 10维联合优化）
+
+    v3.3改进：扩展为10维联合优化
+    - 4个权重参数：w_trend, w_bias, w_vol, w_rsi
+    - 6个原有参数：theta_buy, theta_sell, alpha_vol, rsi_thresh, score_threshold
 
     Parameters:
     -----------
@@ -192,7 +208,7 @@ def optimize_parameters(train_data: dict) -> Dict:
         最优参数
     """
     logger.info("=" * 80)
-    logger.info("参数优化（遗传算法 v3.2）")
+    logger.info("参数优化（遗传算法 v3.3 - 10维联合优化）")
     logger.info("=" * 80)
 
     # 创建适应度和个体类
@@ -202,7 +218,18 @@ def optimize_parameters(train_data: dict) -> Dict:
 
     toolbox = base.Toolbox()
 
-    # 定义个体（v3.2: 5个参数，新增score_threshold）
+    # 定义个体（v3.3: 10个参数 = 4个权重 + 6个原有参数）
+    # 权重参数（前4维）
+    toolbox.register("attr_w_trend", random.uniform,
+                     PARAM_SPACE['w_trend'][0], PARAM_SPACE['w_trend'][1])
+    toolbox.register("attr_w_bias", random.uniform,
+                     PARAM_SPACE['w_bias'][0], PARAM_SPACE['w_bias'][1])
+    toolbox.register("attr_w_vol", random.uniform,
+                     PARAM_SPACE['w_vol'][0], PARAM_SPACE['w_vol'][1])
+    toolbox.register("attr_w_rsi", random.uniform,
+                     PARAM_SPACE['w_rsi'][0], PARAM_SPACE['w_rsi'][1])
+
+    # 原有参数（后6维）
     toolbox.register("attr_theta_buy", random.uniform,
                      PARAM_SPACE['theta_buy'][0], PARAM_SPACE['theta_buy'][1])
     toolbox.register("attr_theta_sell", random.uniform,
@@ -215,7 +242,8 @@ def optimize_parameters(train_data: dict) -> Dict:
                      PARAM_SPACE['score_threshold'][0], PARAM_SPACE['score_threshold'][1])
 
     toolbox.register("individual", tools.initCycle, creator.Individual,
-                     (toolbox.attr_theta_buy, toolbox.attr_theta_sell,
+                     (toolbox.attr_w_trend, toolbox.attr_w_bias, toolbox.attr_w_vol, toolbox.attr_w_rsi,
+                      toolbox.attr_theta_buy, toolbox.attr_theta_sell,
                       toolbox.attr_alpha_vol, toolbox.attr_rsi_thresh,
                       toolbox.attr_score_threshold), n=1)
 
@@ -246,12 +274,12 @@ def optimize_parameters(train_data: dict) -> Dict:
         for child1, child2 in zip(offspring[::2], offspring[1::2]):
             if random.random() < GA_CONFIG['crossover_prob']:
                 toolbox.mate(child1, child2)
-                # 强制约束 alpha_vol 在 0.5~0.8
-                child1[2] = max(0.5, min(0.8, child1[2]))
-                child2[2] = max(0.5, min(0.8, child2[2]))
-                # 强制约束 score_threshold 在 0.60~0.70
-                child1[4] = max(0.60, min(0.70, child1[4]))
-                child2[4] = max(0.60, min(0.70, child2[4]))
+                # v3.3: 强制约束 alpha_vol 在 0.70~0.90（索引6）
+                child1[6] = max(0.70, min(0.90, child1[6]))
+                child2[6] = max(0.70, min(0.90, child2[6]))
+                # v3.3: 强制约束 score_threshold 在 0.40~0.60（索引8）
+                child1[8] = max(0.40, min(0.60, child1[8]))
+                child2[8] = max(0.40, min(0.60, child2[8]))
                 del child1.fitness.values
                 del child2.fitness.values
 
@@ -259,10 +287,10 @@ def optimize_parameters(train_data: dict) -> Dict:
         for mutant in offspring:
             if random.random() < GA_CONFIG['mutation_prob']:
                 toolbox.mutate(mutant)
-                # 强制约束 alpha_vol 在 0.5~0.8
-                mutant[2] = max(0.5, min(0.8, mutant[2]))
-                # 强制约束 score_threshold 在 0.60~0.70
-                mutant[4] = max(0.60, min(0.70, mutant[4]))
+                # v3.3: 强制约束 alpha_vol 在 0.70~0.90（索引6）
+                mutant[6] = max(0.70, min(0.90, mutant[6]))
+                # v3.3: 强制约束 score_threshold 在 0.40~0.60（索引8）
+                mutant[8] = max(0.40, min(0.60, mutant[8]))
                 del mutant.fitness.values
 
         # 评估
@@ -293,11 +321,15 @@ def optimize_parameters(train_data: dict) -> Dict:
         if gen % 10 == 0 or gen == GA_CONFIG['generations'] - 1:
             best_ind_gen = tools.selBest(pop, 1)[0]
             best_params_gen = {
-                'theta_buy': round(best_ind_gen[0], 2),
-                'theta_sell': round(best_ind_gen[1], 2),
-                'alpha_vol': round(max(0.5, min(0.8, best_ind_gen[2])), 2),
-                'rsi_thresh': int(best_ind_gen[3]),
-                'score_threshold': round(max(0.60, min(0.70, best_ind_gen[4])), 2)
+                'w_trend': round(best_ind_gen[0], 3),
+                'w_bias': round(best_ind_gen[1], 3),
+                'w_vol': round(best_ind_gen[2], 3),
+                'w_rsi': round(best_ind_gen[3], 3),
+                'theta_buy': round(best_ind_gen[4], 2),
+                'theta_sell': round(best_ind_gen[5], 2),
+                'alpha_vol': round(max(0.70, min(0.90, best_ind_gen[6])), 2),
+                'rsi_thresh': int(best_ind_gen[7]),
+                'score_threshold': round(max(0.40, min(0.60, best_ind_gen[8])), 2)
             }
 
             logger.info(
@@ -321,11 +353,15 @@ def optimize_parameters(train_data: dict) -> Dict:
     best_ind = tools.selBest(pop, 1)[0]
 
     best_params = {
-        'theta_buy': round(best_ind[0], 2),
-        'theta_sell': round(best_ind[1], 2),
-        'alpha_vol': round(best_ind[2], 2),
-        'rsi_thresh': int(best_ind[3]),
-        'score_threshold': round(best_ind[4], 2),
+        'w_trend': round(best_ind[0], 3),
+        'w_bias': round(best_ind[1], 3),
+        'w_vol': round(best_ind[2], 3),
+        'w_rsi': round(best_ind[3], 3),
+        'theta_buy': round(best_ind[4], 2),
+        'theta_sell': round(best_ind[5], 2),
+        'alpha_vol': round(best_ind[6], 2),
+        'rsi_thresh': int(best_ind[7]),
+        'score_threshold': round(best_ind[8], 2),
         'risk_per_trade': 0.02,
         'max_position': 0.8,
         'min_amount': 30000000
