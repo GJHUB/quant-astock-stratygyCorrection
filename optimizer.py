@@ -10,6 +10,7 @@ import time
 from typing import Dict, List
 from deap import base, creator, tools
 import numpy as np
+import pandas as pd
 
 from config import PARAM_SPACE, GA_CONFIG
 
@@ -46,15 +47,16 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
         try:
             df_signals = generate_signals(df.copy(), params)
 
-            # v3.3: 收集 signal_score（每只股票的最后一个有效分值）
-            if 'signal_score' in df_signals.columns:
-                valid_scores = df_signals['signal_score'].dropna()
-                if len(valid_scores) > 0:
-                    all_scores.append(float(valid_scores.iloc[-1]))
-
             # 简单计算收益
             buy_signals = df_signals[df_signals['signal'] == 1]
             sell_signals = df_signals[df_signals['signal'] == -1]
+
+            # v3.3: 收集所有买入信号触发时的 score（而不是只看最后一天）
+            if len(buy_signals) > 0 and 'signal_score' in df_signals.columns:
+                for idx in buy_signals.index:
+                    score_at_buy = df_signals.loc[idx, 'signal_score']
+                    if not pd.isna(score_at_buy):
+                        all_scores.append(float(score_at_buy))
 
             if len(buy_signals) > 0:
                 total_trades += len(buy_signals)
