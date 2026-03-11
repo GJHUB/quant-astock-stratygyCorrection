@@ -6,6 +6,7 @@
 
 import random
 import logging
+import time
 from typing import Dict, List
 from deap import base, creator, tools
 import numpy as np
@@ -233,9 +234,11 @@ def optimize_parameters(train_data: dict) -> Dict:
     logger.info("=" * 80)
 
     prev_best_params = None
+    optimize_start_ts = time.time()
 
     # 进化
     for gen in range(GA_CONFIG['generations']):
+        gen_start_ts = time.time()
         offspring = toolbox.select(pop, len(pop))
         offspring = list(map(toolbox.clone, offspring))
 
@@ -284,6 +287,9 @@ def optimize_parameters(train_data: dict) -> Dict:
         avg_ann = sum(annual_rets) / len(annual_rets) if annual_rets else 0.0
         min_dd = min(drawdowns) if drawdowns else 0.0
 
+        gen_cost_sec = time.time() - gen_start_ts
+        total_cost_sec = time.time() - optimize_start_ts
+
         if gen % 10 == 0 or gen == GA_CONFIG['generations'] - 1:
             best_ind_gen = tools.selBest(pop, 1)[0]
             best_params_gen = {
@@ -297,7 +303,8 @@ def optimize_parameters(train_data: dict) -> Dict:
             logger.info(
                 f"Gen {gen:3d}: Best={best_fit:8.4f}, Avg={avg_fit:8.4f}, "
                 f"Trades(best/avg)={best_trades:.1f}/{avg_trades:.1f}, "
-                f"Ann(best/avg)={best_ann:.4f}/{avg_ann:.4f}, MinDD={min_dd:.4f}, Params={best_params_gen}"
+                f"Ann(best/avg)={best_ann:.4f}/{avg_ann:.4f}, MinDD={min_dd:.4f}, "
+                f"GenTime={gen_cost_sec:.2f}s, Total={total_cost_sec:.2f}s, Params={best_params_gen}"
             )
             if prev_best_params is not None:
                 changes = []

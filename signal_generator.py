@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def get_policy_score(dates: pd.Series) -> pd.Series:
+def get_policy_score(dates) -> pd.Series:
     """
     获取政策评分（预留接口，v3.2）
 
@@ -24,7 +24,7 @@ def get_policy_score(dates: pd.Series) -> pd.Series:
 
     Parameters:
     -----------
-    dates : pd.Series
+    dates : pd.Series | pd.Index | list
         日期序列
 
     Returns:
@@ -32,9 +32,12 @@ def get_policy_score(dates: pd.Series) -> pd.Series:
     pd.Series
         政策评分（0-1范围）
     """
-    # 当前实现：返回0（无政策加成）
-    # 未来扩展：接入政策NLP分析、北向资金等
-    return pd.Series(0.0, index=dates.index if hasattr(dates, 'index') else range(len(dates)))
+    # 关键修复：必须与行情df使用同一索引，避免Series对齐后整列变NaN
+    if isinstance(dates, (pd.Series, pd.Index)):
+        idx = dates
+    else:
+        idx = pd.Index(dates)
+    return pd.Series(0.0, index=idx)
 
 
 def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
