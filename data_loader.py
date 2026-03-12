@@ -113,10 +113,10 @@ def load_stock_data(ts_code: str, start_date: str, end_date: str) -> pd.DataFram
                     if col in df.columns:
                         df[col] = df[col].fillna(50)
                 
-                # sma 系列：前向填充（使用第一个有效值）
+                # sma 系列：后向填充（使用第一个有效值）
                 for col in ['sma5', 'sma10', 'sma20', 'sma60', 'sma200', 'vol_sma5', 'vol_sma10', 'vol_sma20']:
                     if col in df.columns:
-                        df[col] = df[col].fillna(method='bfill').fillna(0)
+                        df[col] = df[col].bfill().fillna(0)
                 
                 # 其他指标：填充 0
                 for col in ['macd_dif', 'macd_dea', 'macd_hist', 'atr14', 'atr20', 'kdj_k', 'kdj_d', 'kdj_j', 'volume_ratio']:
