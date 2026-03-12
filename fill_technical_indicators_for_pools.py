@@ -7,7 +7,7 @@ from datetime import datetime
 from config import DB_CONFIG
 from stock_pool import get_training_stock_pool, build_stock_pool
 
-START = '20180101'
+START = '20170101'
 END = datetime.now().strftime('%Y%m%d')
 
 
