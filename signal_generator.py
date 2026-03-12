@@ -102,6 +102,7 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     # 2. BIAS权重（短线Alpha核心）- 负乖离率越大，分数越高
     # theta_buy为负值（如-6），当BIAS < theta_buy时给高分
     bias_score = np.clip((params['theta_buy'] - df['bias20']) / 8.0, 0, 1)
+    bias_score = pd.Series(bias_score, index=df.index).fillna(0)  # 处理NaN
     score += w['bias'] * bias_score
 
     # 3. 缩量权重（A股特有筹码锁定）
@@ -110,6 +111,7 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
 
     # 4. RSI权重（动量互补）- RSI越低，分数越高
     rsi_score = np.clip((params['rsi_thresh'] - df['rsi14']) / 15.0, 0, 1)
+    rsi_score = pd.Series(rsi_score, index=df.index).fillna(0)  # 处理NaN
     score += w['rsi'] * rsi_score
 
     # v3.3: A股微观结构修正
