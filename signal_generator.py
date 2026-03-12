@@ -176,9 +176,10 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     # 计算目标仓位（基于ATR）
     df['target_shares'] = 0
     risk_capital = params.get('initial_cash', 1000000) * params['risk_per_trade']
-    df.loc[df['signal'] == 1, 'target_shares'] = (
-        (risk_capital / df['atr14'] / 100).fillna(0).astype(int) * 100
-    )
+    # 处理 atr14 为 0 或 NaN 的情况，避免除零和 inf
+    atr_safe = df['atr14'].replace(0, np.nan).fillna(1.0)  # 0 替换为 NaN，然后填充为 1.0
+    target_shares_calc = (risk_capital / atr_safe / 100).clip(0, 1e6).fillna(0).astype(int) * 100
+    df.loc[df['signal'] == 1, 'target_shares'] = target_shares_calc[df['signal'] == 1]
 
     return df
 
