@@ -96,23 +96,45 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     score = pd.Series(0.0, index=df.index)
 
     # 1. 趋势权重（长线Beta过滤）
-    trend_up = (df['sma60'] > df['sma60'].shift(1)).fillna(False).astype(float)
+    trend_up = (df['sma60'] > df['sma60'].shift(1)).astype(float)
+    if trend_up.isna().any():
+        nan_count = trend_up.isna().sum()
+        logger.error(f"trend_up 包含 {nan_count} 个 NaN 值，请检查 sma60 数据")
+        raise ValueError(f"trend_up contains {nan_count} NaN values")
     score += w['trend'] * trend_up
 
     # 2. BIAS权重（短线Alpha核心）- 负乖离率越大，分数越高
     # theta_buy为负值（如-6），当BIAS < theta_buy时给高分
     bias_score = np.clip((params['theta_buy'] - df['bias20']) / 8.0, 0, 1)
-    bias_score = pd.Series(bias_score, index=df.index).fillna(0)  # 处理NaN
+    bias_score = pd.Series(bias_score, index=df.index)
+    if bias_score.isna().any():
+        nan_count = bias_score.isna().sum()
+        logger.error(f"bias_score 包含 {nan_count} 个 NaN 值，请检查 bias20 数据")
+        raise ValueError(f"bias_score contains {nan_count} NaN values")
     score += w['bias'] * bias_score
 
     # 3. 缩量权重（A股特有筹码锁定）
-    vol_shrink = (df['vol'] < params['alpha_vol'] * df['vol_sma10']).fillna(False).astype(float)
+    vol_shrink = (df['vol'] < params['alpha_vol'] * df['vol_sma10']).astype(float)
+    if vol_shrink.isna().any():
+        nan_count = vol_shrink.isna().sum()
+        logger.error(f"vol_shrink 包含 {nan_count} 个 NaN 值，请检查 vol_sma10 数据")
+        raise ValueError(f"vol_shrink contains {nan_count} NaN values")
     score += w['vol'] * vol_shrink
 
     # 4. RSI权重（动量互补）- RSI越低，分数越高
     rsi_score = np.clip((params['rsi_thresh'] - df['rsi14']) / 15.0, 0, 1)
-    rsi_score = pd.Series(rsi_score, index=df.index).fillna(0)  # 处理NaN
+    rsi_score = pd.Series(rsi_score, index=df.index)
+    if rsi_score.isna().any():
+        nan_count = rsi_score.isna().sum()
+        logger.error(f"rsi_score 包含 {nan_count} 个 NaN 值，请检查 rsi14 数据")
+        raise ValueError(f"rsi_score contains {nan_count} NaN values")
     score += w['rsi'] * rsi_score
+    
+    # 最终检查：确保 score 没有 NaN
+    if score.isna().any():
+        nan_count = score.isna().sum()
+        logger.error(f"最终 score 包含 {nan_count} 个 NaN 值")
+        raise ValueError(f"Final score contains {nan_count} NaN values")
 
     # v3.3: A股微观结构修正
     # 1. 跌停过滤（日内跌幅 > -9.5%，避免跌停板无法买入）
