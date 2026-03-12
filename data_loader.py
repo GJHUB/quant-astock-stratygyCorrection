@@ -101,6 +101,28 @@ def load_stock_data(ts_code: str, start_date: str, end_date: str) -> pd.DataFram
             if len(df) > 0:
                 df['trade_date'] = pd.to_datetime(df['trade_date'], format='%Y%m%d')
                 df.set_index('trade_date', inplace=True)
+                
+                # 处理技术指标的 NaN 值（数据库中前 N 天可能是 NULL）
+                # bias 系列：前 N 天填充 0
+                for col in ['bias5', 'bias10', 'bias20', 'bias60']:
+                    if col in df.columns:
+                        df[col] = df[col].fillna(0)
+                
+                # rsi 系列：前 N 天填充 50（中性值）
+                for col in ['rsi6', 'rsi12', 'rsi14', 'rsi24']:
+                    if col in df.columns:
+                        df[col] = df[col].fillna(50)
+                
+                # sma 系列：前向填充（使用第一个有效值）
+                for col in ['sma5', 'sma10', 'sma20', 'sma60', 'sma200', 'vol_sma5', 'vol_sma10', 'vol_sma20']:
+                    if col in df.columns:
+                        df[col] = df[col].fillna(method='bfill').fillna(0)
+                
+                # 其他指标：填充 0
+                for col in ['macd_dif', 'macd_dea', 'macd_hist', 'atr14', 'atr20', 'kdj_k', 'kdj_d', 'kdj_j', 'volume_ratio']:
+                    if col in df.columns:
+                        df[col] = df[col].fillna(0)
+                
                 return df
         except Exception as e:
             logger.warning(f"{ts_code}: 数据库加载失败 {e}")
