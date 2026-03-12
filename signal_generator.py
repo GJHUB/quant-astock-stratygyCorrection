@@ -149,21 +149,107 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     else:
         liquidity_ok = pd.Series(True, index=df.index)
 
-    # 买入信号：score > 阈值 & 流动性OK & 非跌停 & 非停牌
-    score_threshold = params.get('score_threshold', 0.50)
-    buy_cond = (score > score_threshold) & liquidity_ok & not_limit_down & not_suspended
+    # 账户状态管理
+    initial_cash = params.get('initial_cash', 1000000)
+    cash = initial_cash
+    shares = 0
 
-    # v3.3: 卖出条件（简化为对称BIAS + score回落）
-    sell_cond = (
-        (df['bias20'] > params['theta_sell']) |  # 正乖离率过大（对称卖出）
-        (score < score_threshold * 0.6)  # 评分回落35%
-    )
-
-    # 生成信号
+    # 持仓状态管理：添加 position 列（0=空仓，1=持仓）
+    df['position'] = 0
     df['signal'] = 0
     df['signal_score'] = score  # 保存评分用于调试
-    df.loc[buy_cond, 'signal'] = 1
-    df.loc[sell_cond, 'signal'] = -1
+
+    # 添加新列记录账户状态
+    df['cash'] = 0.0
+    df['shares'] = 0
+    df['position_value'] = 0.0
+    df['buy_price'] = 0.0
+    df['sell_price'] = 0.0
+
+    score_threshold = params.get('score_threshold', 0.50)
+
+    # 计算目标仓位（基于ATR）
+    df['target_shares'] = 0
+    risk_capital = params.get('initial_cash', 1000000) * params['risk_per_trade']
+    # 处理 atr14 为 0 或 NaN 的情况，避免除零和 inf
+    atr_safe = df['atr14'].replace(0, np.nan).fillna(1.0)  # 0 替换为 NaN，然后填充为 1.0
+    target_shares_calc = (risk_capital / atr_safe / 100).clip(0, 1e6).fillna(0).astype(int) * 100
+    df['target_shares'] = target_shares_calc
+
+    # 逐行处理买入卖出逻辑，避免同时满足条件时的冲突
+    for i in range(1, len(df)):
+        prev_position = df.iloc[i-1]['position']
+        close_price = df['close'].iloc[i]
+
+        # 更新当前持仓市值
+        position_value = shares * close_price
+        df.iloc[i, df.columns.get_loc('position_value')] = position_value
+        df.iloc[i, df.columns.get_loc('cash')] = cash
+        df.iloc[i, df.columns.get_loc('shares')] = shares
+
+        # 买入条件：前一天空仓 且 score > threshold 且流动性OK且非跌停且非停牌
+        buy_cond = (
+            prev_position == 0 and
+            score.iloc[i] > score_threshold and
+            liquidity_ok.iloc[i] and
+            not_limit_down.iloc[i] and
+            not_suspended.iloc[i] and
+            cash > 0
+        )
+
+        # 卖出条件：前一天持仓 且 (bias20 > theta_sell 或 score < threshold*0.6)
+        sell_cond = (
+            prev_position == 1 and
+            shares > 0 and
+            (df['bias20'].iloc[i] > params['theta_sell'] or
+             score.iloc[i] < score_threshold * 0.6)
+        )
+
+        # 更新信号和持仓状态
+        if buy_cond:
+            # 计算目标买入股数（基于ATR风险控制）
+            target_shares = df['target_shares'].iloc[i] if df['target_shares'].iloc[i] > 0 else 0
+
+            # 按照当天收盘价计算可买入股数（整百股）
+            max_affordable_shares = (cash // close_price // 100) * 100
+            buy_shares = min(target_shares, max_affordable_shares) if target_shares > 0 else max_affordable_shares
+
+            if buy_shares > 0:
+                # 执行买入
+                buy_amount = buy_shares * close_price
+                cash -= buy_amount
+                shares += buy_shares
+
+                # 记录买入信号和价格
+                df.iloc[i, df.columns.get_loc('signal')] = 1
+                df.iloc[i, df.columns.get_loc('position')] = 1
+                df.iloc[i, df.columns.get_loc('buy_price')] = close_price
+            else:
+                # 资金不足，继承前一天状态
+                df.iloc[i, df.columns.get_loc('position')] = prev_position
+
+        elif sell_cond:
+            # 按照当天收盘价卖出全部持仓
+            if shares > 0:
+                sell_amount = shares * close_price
+                cash += sell_amount
+                shares = 0
+
+                # 记录卖出信号和价格
+                df.iloc[i, df.columns.get_loc('signal')] = -1
+                df.iloc[i, df.columns.get_loc('position')] = 0
+                df.iloc[i, df.columns.get_loc('sell_price')] = close_price
+            else:
+                # 没有持仓，继承前一天状态
+                df.iloc[i, df.columns.get_loc('position')] = prev_position
+        else:
+            # 继承前一天的持仓状态
+            df.iloc[i, df.columns.get_loc('position')] = prev_position
+
+        # 更新最终的账户状态
+        df.iloc[i, df.columns.get_loc('cash')] = cash
+        df.iloc[i, df.columns.get_loc('shares')] = shares
+        df.iloc[i, df.columns.get_loc('position_value')] = shares * close_price
 
     # T+1 shift（信号延迟1天执行）
     df['signal'] = df['signal'].shift(1).fillna(0)
@@ -172,14 +258,6 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     df['transaction_cost'] = 0.0
     df.loc[df['signal'] == 1, 'transaction_cost'] = 0.00025 + 0.0003  # 买入：佣金+滑点
     df.loc[df['signal'] == -1, 'transaction_cost'] = 0.001 + 0.00025 + 0.0003  # 卖出：印花税+佣金+滑点
-
-    # 计算目标仓位（基于ATR）
-    df['target_shares'] = 0
-    risk_capital = params.get('initial_cash', 1000000) * params['risk_per_trade']
-    # 处理 atr14 为 0 或 NaN 的情况，避免除零和 inf
-    atr_safe = df['atr14'].replace(0, np.nan).fillna(1.0)  # 0 替换为 NaN，然后填充为 1.0
-    target_shares_calc = (risk_capital / atr_safe / 100).clip(0, 1e6).fillna(0).astype(int) * 100
-    df.loc[df['signal'] == 1, 'target_shares'] = target_shares_calc[df['signal'] == 1]
 
     return df
 

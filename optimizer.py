@@ -65,6 +65,16 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
                     # 打印每只股票的 score 统计
                     if log_detail:
                         logger.info(f"  {ts_code}: score(avg/min/max)={stock_avg_score:.4f}/{stock_min_score:.4f}/{stock_max_score:.4f}, buy_signals={len(buy_signals)}")
+                        
+                        # v3.3: 打印每个交易日的 score 值（详细日志）
+                        logger.info(f"  {ts_code} 每日 score 详情:")
+                        for idx, row in df_signals.iterrows():
+                            score_val = row['signal_score']
+                            if not pd.isna(score_val):
+                                trade_date = row.get('trade_date', idx)
+                                signal = row['signal']
+                                signal_str = '买入' if signal == 1 else ('卖出' if signal == -1 else '持有')
+                                logger.info(f"    {trade_date}: score={score_val:.4f}, signal={signal_str}")
                     
                     # 收集买入信号时的 score
                     for idx in buy_signals.index:
