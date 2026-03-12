@@ -96,7 +96,7 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     score = pd.Series(0.0, index=df.index)
 
     # 1. 趋势权重（长线Beta过滤）
-    trend_up = (df['sma60'] > df['sma60'].shift(1)).astype(float)
+    trend_up = (df['sma60'] > df['sma60'].shift(1)).fillna(False).astype(float)
     score += w['trend'] * trend_up
 
     # 2. BIAS权重（短线Alpha核心）- 负乖离率越大，分数越高
@@ -106,7 +106,7 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     score += w['bias'] * bias_score
 
     # 3. 缩量权重（A股特有筹码锁定）
-    vol_shrink = (df['vol'] < params['alpha_vol'] * df['vol_sma10']).astype(float)
+    vol_shrink = (df['vol'] < params['alpha_vol'] * df['vol_sma10']).fillna(False).astype(float)
     score += w['vol'] * vol_shrink
 
     # 4. RSI权重（动量互补）- RSI越低，分数越高
