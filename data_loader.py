@@ -162,18 +162,19 @@ def calculate_indicators(df: pd.DataFrame) -> pd.DataFrame:
     df['vol_sma10'] = df['vol'].rolling(10).mean()
     df['vol_sma20'] = df['vol'].rolling(20).mean()
 
-    # 乖离率
-    df['bias5'] = (df['close'] - df['sma5']) / df['sma5'] * 100
-    df['bias10'] = (df['close'] - df['sma10']) / df['sma10'] * 100
-    df['bias20'] = (df['close'] - df['sma20']) / df['sma20'] * 100
-    df['bias60'] = (df['close'] - df['sma60']) / df['sma60'] * 100
+    # 乖离率（处理除零和NaN）
+    df['bias5'] = ((df['close'] - df['sma5']) / df['sma5'] * 100).fillna(0)
+    df['bias10'] = ((df['close'] - df['sma10']) / df['sma10'] * 100).fillna(0)
+    df['bias20'] = ((df['close'] - df['sma20']) / df['sma20'] * 100).fillna(0)
+    df['bias60'] = ((df['close'] - df['sma60']) / df['sma60'] * 100).fillna(0)
 
-    # RSI
+    # RSI（处理除零和NaN）
     delta = df['close'].diff()
     gain = (delta.where(delta > 0, 0)).rolling(14).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
-    rs = gain / loss
-    df['rsi14'] = 100 - (100 / (1 + rs))
+    # 当loss=0时，rs会是inf；当gain和loss都是0时，rs会是NaN
+    rs = gain / loss.replace(0, np.nan)  # 避免除零
+    df['rsi14'] = (100 - (100 / (1 + rs))).fillna(50)  # NaN时默认50（中性）
     df['rsi6'] = df['rsi14']
     df['rsi12'] = df['rsi14']
     df['rsi24'] = df['rsi14']
