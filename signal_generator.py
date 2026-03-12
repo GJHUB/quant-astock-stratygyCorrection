@@ -105,8 +105,7 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
 
     # 2. BIAS权重（短线Alpha核心）- 负乖离率越大，分数越高
     # theta_buy为负值（如-6），当BIAS < theta_buy时给高分
-    bias_score = np.clip((params['theta_buy'] - df['bias20']) / 8.0, 0, 1)
-    bias_score = pd.Series(bias_score, index=df.index)
+    bias_score = ((params['theta_buy'] - df['bias20']) / 8.0).clip(0, 1)
     if bias_score.isna().any():
         nan_count = bias_score.isna().sum()
         logger.error(f"bias_score 包含 {nan_count} 个 NaN 值，请检查 bias20 数据")
@@ -122,8 +121,7 @@ def generate_signals(df: pd.DataFrame, params: Dict = None) -> pd.DataFrame:
     score += w['vol'] * vol_shrink
 
     # 4. RSI权重（动量互补）- RSI越低，分数越高
-    rsi_score = np.clip((params['rsi_thresh'] - df['rsi14']) / 15.0, 0, 1)
-    rsi_score = pd.Series(rsi_score, index=df.index)
+    rsi_score = ((params['rsi_thresh'] - df['rsi14']) / 15.0).clip(0, 1)
     if rsi_score.isna().any():
         nan_count = rsi_score.isna().sum()
         logger.error(f"rsi_score 包含 {nan_count} 个 NaN 值，请检查 rsi14 数据")
