@@ -42,6 +42,9 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
     total_return = 0.0
     max_dd = 0.0
     all_scores = []  # v3.3: 收集所有股票的 score 用于统计
+    
+    # 添加详细的 score 日志
+    log_detail = params.get('_log_detail', False)  # 通过参数控制是否打印详细日志
 
     for ts_code, df in data_dict.items():
         try:
@@ -52,11 +55,22 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
             sell_signals = df_signals[df_signals['signal'] == -1]
 
             # v3.3: 收集所有买入信号触发时的 score（而不是只看最后一天）
-            if len(buy_signals) > 0 and 'signal_score' in df_signals.columns:
-                for idx in buy_signals.index:
-                    score_at_buy = df_signals.loc[idx, 'signal_score']
-                    if not pd.isna(score_at_buy):
-                        all_scores.append(float(score_at_buy))
+            if 'signal_score' in df_signals.columns:
+                score_series = df_signals['signal_score'].dropna()
+                if len(score_series) > 0:
+                    stock_avg_score = float(score_series.mean())
+                    stock_max_score = float(score_series.max())
+                    stock_min_score = float(score_series.min())
+                    
+                    # 打印每只股票的 score 统计
+                    if log_detail:
+                        logger.info(f"  {ts_code}: score(avg/min/max)={stock_avg_score:.4f}/{stock_min_score:.4f}/{stock_max_score:.4f}, buy_signals={len(buy_signals)}")
+                    
+                    # 收集买入信号时的 score
+                    for idx in buy_signals.index:
+                        score_at_buy = df_signals.loc[idx, 'signal_score']
+                        if not pd.isna(score_at_buy):
+                            all_scores.append(float(score_at_buy))
 
             if len(buy_signals) > 0:
                 total_trades += len(buy_signals)
@@ -71,6 +85,8 @@ def simple_backtest(data_dict: dict, params: dict) -> dict:
                         if ret > 0:
                             winning_trades += 1
         except Exception as e:
+            if log_detail:
+                logger.warning(f"  {ts_code}: 评估失败 - {e}")
             continue
 
     # v3.1+: 防止分母为0，改进计算逻辑
@@ -364,6 +380,16 @@ def optimize_parameters(train_data: dict) -> Dict:
                 f"Score(best/avg)={best_score:.4f}/{avg_score:.4f}, "
                 f"GenTime={gen_cost_sec:.2f}s, Total={total_cost_sec:.2f}s, Params={best_params_gen}"
             )
+            
+            # 打印每只股票的 score 详情（使用最佳参数重新评估）
+            logger.info(f"  详细 score 统计（使用最佳参数）:")
+            best_params_with_log = best_params_gen.copy()
+            best_params_with_log['_log_detail'] = True
+            best_params_with_log['risk_per_trade'] = 0.02
+            best_params_with_log['max_position'] = 0.8
+            best_params_with_log['min_amount'] = 30000000
+            simple_backtest(train_data, best_params_with_log)
+            
             if prev_best_params is not None:
                 changes = []
                 for k in best_params_gen:
