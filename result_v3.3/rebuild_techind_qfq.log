@@ -1,0 +1,329 @@
+/home/joe/quant/quantv3/stock_pool.py:72: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn, params=(codes,))
+INFO:stock_pool:训练集配置总数: 119，可用(>=200 bars): 119
+/home/joe/quant/quantv3/stock_pool.py:123: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn, params=(codes,))
+INFO:stock_pool:================================================================================
+INFO:stock_pool:股票池构建完成（按用户图片清单）
+INFO:stock_pool:================================================================================
+INFO:stock_pool:图片清单总数: 30
+INFO:stock_pool:可用股票数(>=200 bars): 29
+INFO:stock_pool:================================================================================
+INFO:stock_pool:  002837.SZ 英维克(液冷) bars=1975
+INFO:stock_pool:  301018.SZ 申菱环境(液冷) bars=1129
+INFO:stock_pool:  301326.SZ 捷邦科技(液冷) bars=834
+INFO:stock_pool:  300731.SZ 科创新源(液冷) bars=1966
+INFO:stock_pool:  002536.SZ 飞龙股份(液冷) bars=1981
+INFO:stock_pool:  300602.SZ 飞荣达(液冷) bars=1981
+INFO:stock_pool:  300308.SZ 中际旭创(海外算力) bars=1981
+INFO:stock_pool:  300502.SZ 新易盛(海外算力) bars=1981
+INFO:stock_pool:  002384.SZ 东山精密(海外算力) bars=1911
+INFO:stock_pool:  301217.SZ 铜冠铜箔(海外算力) bars=991
+INFO:stock_pool:  001267.SZ 汇绿生态(海外算力) bars=1037
+INFO:stock_pool:  300394.SZ 天孚通信(海外算力) bars=1976
+INFO:stock_pool:  688629.SH 华丰科技(国产算力) bars=652
+INFO:stock_pool:  002843.SZ 泰嘉股份(国产算力) bars=1981
+INFO:stock_pool:  002897.SZ 意华股份(国产算力) bars=1981
+INFO:stock_pool:  600589.SH 大位科技(国产算力) bars=1942
+INFO:stock_pool:  300442.SZ 润泽科技(国产算力) bars=1965
+INFO:stock_pool:  300846.SZ 首都在线(国产算力) bars=1377
+INFO:stock_pool:  688702.SH 盛科通信-U(国产算力) bars=596
+INFO:stock_pool:  603881.SH 数据港(国产算力) bars=1981
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+/home/joe/quant/quantv3/fill_technical_indicators_for_pools.py:144: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  kdf = pd.read_sql(sel_sql, conn, params=(code, START, END))
+TRAIN=119 TEST=29 UNION=141
+[10/141] upserted rows=17812
+[20/141] upserted rows=37375
+[30/141] upserted rows=56628
+[40/141] upserted rows=76148
+[50/141] upserted rows=95832
+[60/141] upserted rows=115620
+[70/141] upserted rows=132885
+[80/141] upserted rows=144793
+[90/141] upserted rows=163110
+[100/141] upserted rows=181992
+[110/141] upserted rows=195276
+[120/141] upserted rows=207606
+[130/141] upserted rows=217200
+[140/141] upserted rows=227262
+KLINE_ROWS=228622 TECH_ROWS=228622
